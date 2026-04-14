@@ -1,4 +1,3 @@
-
 /*
 Sentence 5
 Current direction and speed from the atlas

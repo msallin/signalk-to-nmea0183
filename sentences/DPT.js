@@ -19,7 +19,7 @@ module.exports = function (app) {
       'environment.depth.belowTransducer',
       'environment.depth.transducerToKeel'
     ],
-    f: function dpt (belowTransducer, transducerToKeel) {
+    f: function dpt(belowTransducer, transducerToKeel) {
       return nmea.toSentence([
         '$IIDPT',
         belowTransducer.toFixed(2),

@@ -3,7 +3,7 @@ const assert = require('assert')
 const { createAppWithPlugin } = require('./testutil')
 
 describe('MWV relative', function () {
-  it('works with positive angle', done => {
+  it('works with positive angle', (done) => {
     const onEmit = (event, value) => {
       assert.equal(value, '$IIMWV,180.00,R,2.00,M,A*35')
       done()
@@ -15,7 +15,7 @@ describe('MWV relative', function () {
     app.streambundle.getSelfStream('environment.wind.speedApparent').push(2)
   })
 
-  it('works with negative angle', done => {
+  it('works with negative angle', (done) => {
     const onEmit = (event, value) => {
       assert.equal(value, '$IIMWV,270.00,R,2.00,M,A*39')
       done()
@@ -29,7 +29,7 @@ describe('MWV relative', function () {
 })
 
 describe('MWV true', function () {
-  it('works with positive angle', done => {
+  it('works with positive angle', (done) => {
     const onEmit = (event, value) => {
       assert.equal(value, '$IIMWV,180.00,T,2.00,M,A*33')
       done()
@@ -42,7 +42,7 @@ describe('MWV true', function () {
     app.streambundle.getSelfStream('environment.wind.speedTrue').push(2)
   })
 
-  it('works with negative angle', done => {
+  it('works with negative angle', (done) => {
     const onEmit = (event, value) => {
       assert.equal(value, '$IIMWV,270.00,T,2.00,M,A*3F')
       done()

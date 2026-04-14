@@ -17,12 +17,12 @@ const m_hex = [
   'F'
 ]
 
-function toSentence (parts) {
+function toSentence(parts) {
   var base = parts.join(',')
   return base + computeChecksum(base)
 }
 
-function computeChecksum (sentence) {
+function computeChecksum(sentence) {
   // skip the $
   let i = 1
   // init to first character
@@ -34,35 +34,35 @@ function computeChecksum (sentence) {
   return '*' + toHexString(c1)
 }
 
-function toHexString (v) {
+function toHexString(v) {
   let msn = (v >> 4) & 0x0f
   let lsn = (v >> 0) & 0x0f
   return m_hex[msn] + m_hex[lsn]
 }
 
-function radsToDeg (radians) {
-  return radians * 180 / Math.PI
+function radsToDeg(radians) {
+  return (radians * 180) / Math.PI
 }
 
-function msToKnots (v) {
-  return v * 3600 / 1852.0
+function msToKnots(v) {
+  return (v * 3600) / 1852.0
 }
 
-function msToKM (v) {
-  return v * 3600.0 / 1000.0
+function msToKM(v) {
+  return (v * 3600.0) / 1000.0
 }
 
-function mToNm (v) {
+function mToNm(v) {
   return v * 0.000539957
 }
 
-function padd (n, p, c) {
+function padd(n, p, c) {
   let pad_char = typeof c !== 'undefined' ? c : '0'
   let pad = new Array(1 + p).join(pad_char)
   return (pad + n).slice(-pad.length)
 }
 
-function decimalDegreesToDegreesAndDecimalMinutes ( degrees ) {
+function decimalDegreesToDegreesAndDecimalMinutes(degrees) {
   /*
     decimalDegreesToDegreesAndDecimalMinutes takes a float (degrees)
     representing decimal degrees and returns a tuple [deg, min, dir], where
@@ -73,19 +73,19 @@ function decimalDegreesToDegreesAndDecimalMinutes ( degrees ) {
     NOTE: 0 degrees is N or E
   */
 
-  let dir=1 // default to N or E
+  let dir = 1 // default to N or E
 
-  if (degrees<0) {
+  if (degrees < 0) {
     dir = -1
     degrees *= -1
   }
 
   let degrees_out = Math.floor(degrees)
   let minutes = (degrees % 1) * 60
-  return [ degrees_out, minutes, dir ]
+  return [degrees_out, minutes, dir]
 }
 
-function toNmeaDegreesLatitude (inVal) {
+function toNmeaDegreesLatitude(inVal) {
   /*
     toNmeaDegreesLatitude takes a float (inVal) representing decimal degrees
     and returns a string formatted as degrees and decimal minutes suitable for
@@ -93,19 +93,20 @@ function toNmeaDegreesLatitude (inVal) {
   */
 
   if (typeof inVal != 'number' || inVal < -90 || inVal > 90) {
-    throw new Error("invalid input to toNmeaDegreesLatitude: " + inVal)
+    throw new Error('invalid input to toNmeaDegreesLatitude: ' + inVal)
   }
 
   let [degrees, minutes, dir] = decimalDegreesToDegreesAndDecimalMinutes(inVal)
 
-  return(
-      padd(degrees.toFixed(0), 2)
-      + padd(minutes.toFixed(4), 7)
-      + "," + (dir > 0 ? "N" : "S")
-    )
+  return (
+    padd(degrees.toFixed(0), 2) +
+    padd(minutes.toFixed(4), 7) +
+    ',' +
+    (dir > 0 ? 'N' : 'S')
+  )
 }
 
-function toNmeaDegreesLongitude (inVal) {
+function toNmeaDegreesLongitude(inVal) {
   /*
     toNmeaDegreesLongitude takes a float (inVal) representing decimal degrees
     and returns a string formatted as degrees and decimal minutes suitable for
@@ -113,26 +114,27 @@ function toNmeaDegreesLongitude (inVal) {
   */
 
   if (typeof inVal != 'number' || inVal <= -180 || inVal > 180) {
-    throw new Error("invalid input to toNmeaDegreesLongitude: " + inVal)
+    throw new Error('invalid input to toNmeaDegreesLongitude: ' + inVal)
   }
 
   let [degrees, minutes, dir] = decimalDegreesToDegreesAndDecimalMinutes(inVal)
 
-  return(
-      padd(degrees.toFixed(0), 3)
-      + padd(minutes.toFixed(4), 7)
-      + "," + (dir > 0 ? "E" : "W")
-    )
+  return (
+    padd(degrees.toFixed(0), 3) +
+    padd(minutes.toFixed(4), 7) +
+    ',' +
+    (dir > 0 ? 'E' : 'W')
+  )
 }
 
-function fixAngle (d) {
+function fixAngle(d) {
   let result = d
   if (d > Math.PI) result -= 2 * Math.PI
   if (d < -Math.PI) result += 2 * Math.PI
   return result
 }
 
-function toPositiveRadians (d) {
+function toPositiveRadians(d) {
   return d < 0 ? d + 2 * Math.PI : d
 }
 

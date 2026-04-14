@@ -11,10 +11,8 @@ module.exports = function (app) {
   return {
     sentence: 'VPW',
     title: 'VPW - Speed – Measured Parallel to Wind',
-    keys: [
-      'performance.velocityMadeGood'
-    ],
-    f: function vpw (velocityMadeGood) {
+    keys: ['performance.velocityMadeGood'],
+    f: function vpw(velocityMadeGood) {
       return nmea.toSentence([
         '$IIVPW',
         nmea.msToKnots(velocityMadeGood).toFixed(2),

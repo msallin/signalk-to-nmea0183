@@ -2,15 +2,14 @@ const Bacon = require('baconjs')
 
 module.exports = {
   createAppWithPlugin: function (onEmit, enabledConversion) {
-    const streams = {
-    }
+    const streams = {}
     const app = {
       streambundle: {
-        getSelfStream: path => {
+        getSelfStream: (path) => {
           if (streams[path]) {
             return streams[path]
           } else {
-            return streams[path] = new Bacon.Bus()
+            return (streams[path] = new Bacon.Bus())
           }
         }
       },

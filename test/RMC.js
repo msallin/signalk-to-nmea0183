@@ -1,9 +1,9 @@
 const assert = require('assert')
 
-const {createAppWithPlugin} = require ('./testutil')
+const { createAppWithPlugin } = require('./testutil')
 
 describe('RMC', function () {
-  it('works without datetime & magneticVariation', done => {
+  it('works without datetime & magneticVariation', (done) => {
     const onEmit = (event, value) => {
       assert.equal(value, '$GPRMC,,A,0600.0000,N,00500.0000,E,1.9,114.6,,,E*51')
       done()
@@ -16,9 +16,12 @@ describe('RMC', function () {
       .push({ longitude: 5, latitude: 6 })
   })
 
-  it('works with large longitude & magnetic variation', done => {
+  it('works with large longitude & magnetic variation', (done) => {
     const onEmit = (event, value) => {
-      assert.equal(value, '$GPRMC,,A,3749.6038,N,12225.2480,W,1.9,114.6,,180.0,E*6B')
+      assert.equal(
+        value,
+        '$GPRMC,,A,3749.6038,N,12225.2480,W,1.9,114.6,,180.0,E*6B'
+      )
       done()
     }
     const app = createAppWithPlugin(onEmit, 'RMC')
@@ -30,7 +33,7 @@ describe('RMC', function () {
       .push({ longitude: -122.4208, latitude: 37.82673 })
   })
 
-  it('ignores a too large longitude', done => {
+  it('ignores a too large longitude', (done) => {
     const onEmit = (event, value) => {
       assert.equal(value, '$GPRMC,,A,3749.6038,N,12225.2480,W,1.9,114.6,,,E*4C')
       done()
