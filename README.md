@@ -1,4 +1,9 @@
 # signalk-to-nmea0183
+
+[![CI](https://github.com/SignalK/signalk-to-nmea0183/actions/workflows/ci.yml/badge.svg)](https://github.com/SignalK/signalk-to-nmea0183/actions/workflows/ci.yml)
+[![npm version](https://img.shields.io/npm/v/@signalk/signalk-to-nmea0183.svg)](https://www.npmjs.com/package/@signalk/signalk-to-nmea0183)
+[![License](https://img.shields.io/npm/l/@signalk/signalk-to-nmea0183.svg)](https://github.com/SignalK/signalk-to-nmea0183/blob/master/LICENSE)
+
 Signal K Node server plugin to convert Signal K to NMEA 0183. See the code for a list of supported sentences.
 
 To use the plugin you need to activate the plugin and the relevant sentences in server's Admin interface. This will make the conversion results (NMEA 0183) available on Signalk's built-in TCP NMEA 0183 server (Port 10110).
