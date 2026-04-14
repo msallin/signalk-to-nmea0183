@@ -15,10 +15,17 @@ module.exports = function (app) {
     title: 'VWT - True wind speed relative to boat.',
     keys: ['environment.wind.angleTrueWater', 'environment.wind.speedTrue'],
     f: function (angleTrueWater, speedTrue) {
+      // environment.wind.angleTrueWater is signed radians, negative to port.
+      // NMEA 0183 VWT expects magnitude 0..180 followed by L/R.
+      var windDirection = 'R'
+      if (angleTrueWater < 0) {
+        angleTrueWater = -angleTrueWater
+        windDirection = 'L'
+      }
       return nmea.toSentence([
         '$IIVWT',
         nmea.radsToDeg(angleTrueWater).toFixed(2),
-        'a',
+        windDirection,
         nmea.msToKnots(speedTrue).toFixed(2),
         'N',
         speedTrue.toFixed(2),
