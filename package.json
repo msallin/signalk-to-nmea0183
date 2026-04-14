@@ -15,10 +15,11 @@
   ],
   "author": "teppo.kurki@iki.fi",
   "license": "ISC",
-  "dependencies": {
-    "baconjs": "^1.0.1"
+  "peerDependencies": {
+    "baconjs": "^3.0.0"
   },
   "devDependencies": {
+    "baconjs": "^3.0.0",
     "mocha": "^11.7.1",
     "prettier-standard": "^16.4.1"
   }

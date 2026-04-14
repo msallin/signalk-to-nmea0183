@@ -35,7 +35,7 @@ module.exports = function (app) {
       const selfStreams = encoder.keys.map((key, index) => {
         let stream = app.streambundle.getSelfStream(key)
         if (encoder.defaults && typeof encoder.defaults[index] != 'undefined') {
-          stream = stream.merge(Bacon.once(encoder.defaults[index]))
+          stream = stream.toProperty(encoder.defaults[index])
         }
         return stream
       }, app.streambundle)
