@@ -60,4 +60,77 @@ describe('VWT', function () {
     const app = createAppWithPlugin(onEmit, 'VWT')
     pushVWT(app, Math.PI / 2, 5.14)
   })
+
+  // Regression tests for SignalK/signalk-to-nmea0183#36.
+  // NMEA 0183 VWT expects a magnitude 0..180 followed by L (port) or R
+  // (starboard). Signal K delivers environment.wind.angleTrueWater as
+  // signed radians, negative to port (see specification/schemas/groups/
+  // environment.json). The encoder must map the sign to L/R and emit the
+  // absolute angle in degrees, not the raw signed value.
+
+  it('reports starboard wind with R and a positive angle', done => {
+    const onEmit = (event, value) => {
+      const parts = parseSentence(value)
+      assert.equal(parts[1], '45.00')
+      assert.equal(parts[2], 'R')
+      done()
+    }
+    const app = createAppWithPlugin(onEmit, 'VWT')
+    pushVWT(app, Math.PI / 4, 2)
+  })
+
+  it('reports port wind with L and a positive angle', done => {
+    const onEmit = (event, value) => {
+      const parts = parseSentence(value)
+      assert.equal(parts[1], '45.00')
+      assert.equal(parts[2], 'L')
+      done()
+    }
+    const app = createAppWithPlugin(onEmit, 'VWT')
+    pushVWT(app, -Math.PI / 4, 2)
+  })
+
+  it('reports head-on wind (0 rad) with a 0 angle and R', done => {
+    const onEmit = (event, value) => {
+      const parts = parseSentence(value)
+      assert.equal(parts[1], '0.00')
+      assert.equal(parts[2], 'R')
+      done()
+    }
+    const app = createAppWithPlugin(onEmit, 'VWT')
+    pushVWT(app, 0, 2)
+  })
+
+  it('reports astern wind (pi rad) with a 180 angle', done => {
+    const onEmit = (event, value) => {
+      const parts = parseSentence(value)
+      assert.equal(parts[1], '180.00')
+      assert.match(parts[2], /^[LR]$/)
+      done()
+    }
+    const app = createAppWithPlugin(onEmit, 'VWT')
+    pushVWT(app, Math.PI, 2)
+  })
+
+  it('reports beam wind 90deg starboard with R', done => {
+    const onEmit = (event, value) => {
+      const parts = parseSentence(value)
+      assert.equal(parts[1], '90.00')
+      assert.equal(parts[2], 'R')
+      done()
+    }
+    const app = createAppWithPlugin(onEmit, 'VWT')
+    pushVWT(app, Math.PI / 2, 2)
+  })
+
+  it('reports beam wind 90deg port with L', done => {
+    const onEmit = (event, value) => {
+      const parts = parseSentence(value)
+      assert.equal(parts[1], '90.00')
+      assert.equal(parts[2], 'L')
+      done()
+    }
+    const app = createAppWithPlugin(onEmit, 'VWT')
+    pushVWT(app, -Math.PI / 2, 2)
+  })
 })
