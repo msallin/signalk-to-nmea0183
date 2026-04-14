@@ -1,6 +1,6 @@
 {
   "name": "@signalk/signalk-to-nmea0183",
-  "version": "1.13.5",
+  "version": "1.14.0",
   "description": "Signal K server plugin to convert Signal K to NMEA0183",
   "repository": {
     "url": "https://github.com/SignalK/signalk-to-nmea0183"
@@ -30,6 +30,7 @@
   "c8": {
     "include": [
       "index.js",
+      "nmea.js",
       "sentences/**"
     ],
     "exclude": [
