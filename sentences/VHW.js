@@ -18,7 +18,7 @@ module.exports = function (app) {
       'navigation.magneticVariation',
       'navigation.speedThroughWater'
     ],
-    f: function vhw (headingTrue, magneticVariation, speedThroughWater) {
+    f: function vhw(headingTrue, magneticVariation, speedThroughWater) {
       var headingMagnetic = headingTrue + magneticVariation
       if (headingMagnetic > Math.PI * 2) {
         headingMagnetic -= Math.PI * 2

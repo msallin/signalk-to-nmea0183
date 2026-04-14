@@ -14,7 +14,7 @@ module.exports = function (app) {
     sentence: 'GLL',
     title: 'GLL - Geographical position, latitude and longitude',
     keys: ['navigation.datetime', 'navigation.position'],
-    f: function gll (datetime8601, position) {
+    f: function gll(datetime8601, position) {
       var datetime = new Date(datetime8601)
       var hours = ('00' + datetime.getHours()).slice(-2)
       var minutes = ('00' + datetime.getMinutes()).slice(-2)

@@ -6,13 +6,13 @@ const { createAppWithPlugin } = require('./testutil')
 // from the final field.
 // Input:  "$IIVWT,90.00,R,3.89,N,2.00,M,7.20,K*73"
 // Output: ["$IIVWT", "90.00", "R", "3.89", "N", "2.00", "M", "7.20", "K"]
-function parseSentence (sentence) {
+function parseSentence(sentence) {
   const star = sentence.indexOf('*')
   const body = star >= 0 ? sentence.substring(0, star) : sentence
   return body.split(',')
 }
 
-function pushVWT (app, angleRad, speedMs) {
+function pushVWT(app, angleRad, speedMs) {
   app.streambundle
     .getSelfStream('environment.wind.angleTrueWater')
     .push(angleRad)
@@ -20,7 +20,7 @@ function pushVWT (app, angleRad, speedMs) {
 }
 
 describe('VWT', function () {
-  it('emits a VWT sentence with the expected layout', done => {
+  it('emits a VWT sentence with the expected layout', (done) => {
     const onEmit = (event, value) => {
       const parts = parseSentence(value)
       assert.equal(parts[0], '$IIVWT')
@@ -35,7 +35,7 @@ describe('VWT', function () {
     pushVWT(app, Math.PI / 2, 2)
   })
 
-  it('converts true wind speed to knots, m/s and km/h', done => {
+  it('converts true wind speed to knots, m/s and km/h', (done) => {
     // 2 m/s -> 3.89 kn, 2.00 m/s, 7.20 km/h
     const onEmit = (event, value) => {
       const parts = parseSentence(value)
@@ -48,7 +48,7 @@ describe('VWT', function () {
     pushVWT(app, Math.PI / 2, 2)
   })
 
-  it('handles a different speed value', done => {
+  it('handles a different speed value', (done) => {
     // 5.14 m/s ~ 10 knots
     const onEmit = (event, value) => {
       const parts = parseSentence(value)
@@ -68,7 +68,7 @@ describe('VWT', function () {
   // environment.json). The encoder must map the sign to L/R and emit the
   // absolute angle in degrees, not the raw signed value.
 
-  it('reports starboard wind with R and a positive angle', done => {
+  it('reports starboard wind with R and a positive angle', (done) => {
     const onEmit = (event, value) => {
       const parts = parseSentence(value)
       assert.equal(parts[1], '45.00')
@@ -79,7 +79,7 @@ describe('VWT', function () {
     pushVWT(app, Math.PI / 4, 2)
   })
 
-  it('reports port wind with L and a positive angle', done => {
+  it('reports port wind with L and a positive angle', (done) => {
     const onEmit = (event, value) => {
       const parts = parseSentence(value)
       assert.equal(parts[1], '45.00')
@@ -90,7 +90,7 @@ describe('VWT', function () {
     pushVWT(app, -Math.PI / 4, 2)
   })
 
-  it('reports head-on wind (0 rad) with a 0 angle and R', done => {
+  it('reports head-on wind (0 rad) with a 0 angle and R', (done) => {
     const onEmit = (event, value) => {
       const parts = parseSentence(value)
       assert.equal(parts[1], '0.00')
@@ -101,7 +101,7 @@ describe('VWT', function () {
     pushVWT(app, 0, 2)
   })
 
-  it('reports astern wind (pi rad) with a 180 angle', done => {
+  it('reports astern wind (pi rad) with a 180 angle', (done) => {
     const onEmit = (event, value) => {
       const parts = parseSentence(value)
       assert.equal(parts[1], '180.00')
@@ -112,7 +112,7 @@ describe('VWT', function () {
     pushVWT(app, Math.PI, 2)
   })
 
-  it('reports beam wind 90deg starboard with R', done => {
+  it('reports beam wind 90deg starboard with R', (done) => {
     const onEmit = (event, value) => {
       const parts = parseSentence(value)
       assert.equal(parts[1], '90.00')
@@ -123,7 +123,7 @@ describe('VWT', function () {
     pushVWT(app, Math.PI / 2, 2)
   })
 
-  it('reports beam wind 90deg port with L', done => {
+  it('reports beam wind 90deg port with L', (done) => {
     const onEmit = (event, value) => {
       const parts = parseSentence(value)
       assert.equal(parts[1], '90.00')

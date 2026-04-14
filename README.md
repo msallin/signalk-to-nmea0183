@@ -12,7 +12,6 @@ As the plugin automatically sends NMEA 0183 data to Signalk's built-in TCP NMEA 
 
 If you want to output the conversion result into a serial connection you need to configure the serial connection in the server's Admin interface and add an extra line to the `settings.json`, specifying that the serial connection should output the plugin's output:
 
-
 ```
 {
   "pipedProviders": [
@@ -49,4 +48,3 @@ Note: Internally the plugin emits the converted NMEA 0183 messages as `Events` u
 Troubleshooting: If you cannot connect to Signalk's built-in TCP NMEA 0183 server, ensure it is enabled. To verify the TCP NMEA 0183 server is enabled go to Signalk's Dashboard, then Server->Settings->Interfaces->nmea-tcp .
 
 ![image](https://user-images.githubusercontent.com/1049678/63366888-64283700-c383-11e9-9a5f-7f9975e007f3.png)
-

@@ -29,9 +29,10 @@ module.exports = function (app) {
 
   plugin.start = function (options) {
     const selfContext = 'vessels.' + app.selfId
-    const selfMatcher = delta => delta.context && delta.context === selfContext
+    const selfMatcher = (delta) =>
+      delta.context && delta.context === selfContext
 
-    function mapToNmea (encoder, throttle) {
+    function mapToNmea(encoder, throttle) {
       const selfStreams = encoder.keys.map((key, index) => {
         let stream = app.streambundle.getSelfStream(key)
         if (encoder.defaults && typeof encoder.defaults[index] != 'undefined') {
@@ -50,7 +51,7 @@ module.exports = function (app) {
           console.error(e.message)
         }
       }, selfStreams)
-        .filter(v => typeof v !== 'undefined')
+        .filter((v) => typeof v !== 'undefined')
         .changes()
         .debounceImmediate(20)
 
@@ -59,7 +60,7 @@ module.exports = function (app) {
       }
 
       plugin.unsubscribes.push(
-        stream.onValue(nmeaString => {
+        stream.onValue((nmeaString) => {
           if (app.reportOutputMessages) {
             app.reportOutputMessages(1)
           }
@@ -72,7 +73,7 @@ module.exports = function (app) {
       )
     }
 
-    Object.keys(plugin.sentences).forEach(name => {
+    Object.keys(plugin.sentences).forEach((name) => {
       if (options[name]) {
         mapToNmea(plugin.sentences[name], options[getThrottlePropname(name)])
       }
@@ -80,7 +81,7 @@ module.exports = function (app) {
   }
 
   plugin.stop = function () {
-    plugin.unsubscribes.forEach(f => f())
+    plugin.unsubscribes.forEach((f) => f())
   }
 
   plugin.sentences = loadSentences(app, plugin)
@@ -88,8 +89,8 @@ module.exports = function (app) {
   return plugin
 }
 
-function buildSchemaFromSentences (plugin) {
-  Object.keys(plugin.sentences).forEach(key => {
+function buildSchemaFromSentences(plugin) {
+  Object.keys(plugin.sentences).forEach((key) => {
     var sentence = plugin.sentences[key]
     const throttlePropname = getThrottlePropname(key)
     plugin.schema.properties[key] = {
@@ -105,11 +106,11 @@ function buildSchemaFromSentences (plugin) {
   })
 }
 
-function loadSentences (app, plugin) {
+function loadSentences(app, plugin) {
   const fpath = path.join(__dirname, 'sentences')
   return fs
     .readdirSync(fpath)
-    .filter(filename => filename.endsWith('.js'))
+    .filter((filename) => filename.endsWith('.js'))
     .reduce((acc, fname) => {
       let sentence = path.basename(fname, '.js')
       acc[sentence] = require(path.join(fpath, sentence))(app, plugin)
@@ -117,4 +118,4 @@ function loadSentences (app, plugin) {
     }, {})
 }
 
-const getThrottlePropname = key => `${key}_throttle`
+const getThrottlePropname = (key) => `${key}_throttle`
