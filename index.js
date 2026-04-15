@@ -1,4 +1,3 @@
-const Bacon = require('baconjs')
 const {
   toSentence,
   computeChecksum,
@@ -9,6 +8,19 @@ const {
 } = require('./nmea')
 const path = require('path')
 const fs = require('fs')
+
+// Combine N streams into a single stream whose values are fn(v1, v2, ...vN),
+// using only the instance-method .combine(other, fn) that exists on both
+// baconjs 1.x and 3.x. Avoids require('baconjs') in the plugin so that
+// the plugin never carries its own Bacon copy: all stream operations run on
+// the Bacon instance the host signalk-server created the streams with.
+function combineStreamsWith(streams, fn) {
+  const accumulated = streams.reduce((acc, stream, i) => {
+    if (i === 0) return stream.map((v) => [v])
+    return acc.combine(stream, (arr, v) => arr.concat([v]))
+  }, null)
+  return accumulated.map((args) => fn.apply(null, args))
+}
 
 module.exports = function (app) {
   var plugin = {
@@ -44,13 +56,13 @@ module.exports = function (app) {
         ? `g${encoder.sentence}`
         : undefined
 
-      let stream = Bacon.combineWith(function () {
+      let stream = combineStreamsWith(selfStreams, function () {
         try {
           return encoder.f.apply(this, arguments)
         } catch (e) {
           console.error(e.message)
         }
-      }, selfStreams)
+      })
         .filter((v) => typeof v !== 'undefined')
         .changes()
         .debounceImmediate(20)
