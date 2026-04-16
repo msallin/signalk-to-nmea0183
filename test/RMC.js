@@ -5,7 +5,7 @@ const { createAppWithPlugin } = require('./testutil')
 describe('RMC', function () {
   it('works without datetime & magneticVariation', (done) => {
     const onEmit = (event, value) => {
-      assert.equal(value, '$GPRMC,,A,0600.0000,N,00500.0000,E,1.9,114.6,,,E*51')
+      assert.equal(value, '$GPRMC,,A,0600.0000,N,00500.0000,E,1.9,114.6,,,*14')
       done()
     }
     const app = createAppWithPlugin(onEmit, 'RMC')
@@ -35,7 +35,7 @@ describe('RMC', function () {
 
   it('ignores a too large longitude', (done) => {
     const onEmit = (event, value) => {
-      assert.equal(value, '$GPRMC,,A,3749.6038,N,12225.2480,W,1.9,114.6,,,E*4C')
+      assert.equal(value, '$GPRMC,,A,3749.6038,N,12225.2480,W,1.9,114.6,,,*09')
       done()
     }
     const app = createAppWithPlugin(onEmit, 'RMC')
@@ -58,7 +58,7 @@ describe('RMC', function () {
     const onEmit = (event, value) => {
       assert.equal(
         value,
-        '$GPRMC,200152.00,A,5943.2980,N,02444.2043,E,13.0,194.3,051215,,E*46'
+        '$GPRMC,200152.00,A,5943.2980,N,02444.2043,E,13.0,194.3,051215,,*03'
       )
       done()
     }
@@ -105,7 +105,7 @@ describe('RMC', function () {
   // position and time data.
   it('emits RMC with empty COG when COG is unavailable and SOG=0', (done) => {
     const onEmit = (event, value) => {
-      assert.equal(value, '$GPRMC,,A,0600.0000,N,00500.0000,E,0.0,,,,E*75')
+      assert.equal(value, '$GPRMC,,A,0600.0000,N,00500.0000,E,0.0,,,,*30')
       done()
     }
     const app = createAppWithPlugin(onEmit, 'RMC')
@@ -118,7 +118,7 @@ describe('RMC', function () {
 
   it('emits RMC with empty COG when COG is unavailable and SOG>0', (done) => {
     const onEmit = (event, value) => {
-      assert.equal(value, '$GPRMC,,A,0600.0000,N,00500.0000,E,1.9,,,,E*7D')
+      assert.equal(value, '$GPRMC,,A,0600.0000,N,00500.0000,E,1.9,,,,*38')
       done()
     }
     const app = createAppWithPlugin(onEmit, 'RMC')
