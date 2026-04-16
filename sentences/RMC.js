@@ -44,10 +44,15 @@ module.exports = function (app) {
     defaults: ['', undefined, null, undefined, ''],
     f: function (datetime8601, sog, cog, position, magneticVariation) {
       const datetime = formatDatetime(datetime8601)
-      let magneticVariationDir = 'E'
-      if (magneticVariation < 0) {
-        magneticVariationDir = 'W'
-        magneticVariation = magneticVariation * -1
+      let magneticVariationDeg = ''
+      let magneticVariationDir = ''
+      if (typeof magneticVariation === 'number') {
+        magneticVariationDir = 'E'
+        if (magneticVariation < 0) {
+          magneticVariationDir = 'W'
+          magneticVariation = -magneticVariation
+        }
+        magneticVariationDeg = radsToDeg(magneticVariation).toFixed(1)
       }
       return toSentence([
         '$GPRMC',
@@ -58,9 +63,7 @@ module.exports = function (app) {
         msToKnots(sog).toFixed(1),
         cog != null ? radsToDeg(cog).toFixed(1) : '',
         datetime.date,
-        typeof magneticVariation === 'number'
-          ? radsToDeg(magneticVariation).toFixed(1)
-          : magneticVariation,
+        magneticVariationDeg,
         magneticVariationDir
       ])
     }
