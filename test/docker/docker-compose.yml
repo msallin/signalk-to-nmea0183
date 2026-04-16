@@ -1,0 +1,17 @@
+services:
+  signalk:
+    build: .
+    ports:
+      - '3000:3000'
+      - '10110:10110'
+    volumes:
+      - ../../:/home/node/.signalk/node_modules/@signalk/signalk-to-nmea0183:ro
+    environment:
+      - NMEA0183PORT=10110
+    entrypoint:
+      ['/home/node/signalk/node_modules/signalk-server/bin/signalk-server']
+    healthcheck:
+      test: ['CMD', 'curl', '-sf', 'http://localhost:3000/signalk']
+      interval: 3s
+      timeout: 5s
+      retries: 20

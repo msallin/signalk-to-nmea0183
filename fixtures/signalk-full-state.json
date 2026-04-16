@@ -1,0 +1,2256 @@
+{
+  "mmsi": "261006533",
+  "name": "ONA",
+  "communication": {
+    "callsignVhf": "SPA7211",
+    "crewNames": {
+      "meta": {
+        "description": "Array with the names of the crew",
+        "supportsPut": true
+      },
+      "value": ["Fabio", "Mi", "Claudia", "Luki"],
+      "$source": "signalk-logbook.XX",
+      "timestamp": "2026-04-16T16:00:27.629Z"
+    }
+  },
+  "design": {
+    "aisShipType": {
+      "meta": {
+        "description": "The ais ship type see http://www.bosunsmate.org/ais/message5.php",
+        "properties": {
+          "id": { "type": "number", "description": "The ship type number" },
+          "name": { "type": "string", "description": "The ship type name" }
+        }
+      },
+      "value": { "name": "Sailing", "id": 36 },
+      "$source": "defaults",
+      "timestamp": "2026-04-16T12:22:24.547Z"
+    },
+    "draft": {
+      "meta": {
+        "description": "The draft of the vessel",
+        "properties": {
+          "minimum": {
+            "description": "The minimum draft of the vessel",
+            "type": "number",
+            "units": "m"
+          },
+          "maximum": {
+            "description": "The maximum draft of the vessel",
+            "type": "number",
+            "units": "m"
+          },
+          "current": {
+            "description": "The current draft of the vessel",
+            "type": "number",
+            "units": "m"
+          },
+          "canoe": {
+            "description": "The draft of the vessel without protrusions such as keel, centerboard, rudder",
+            "type": "number",
+            "units": "m"
+          }
+        }
+      },
+      "value": { "maximum": 1.25 },
+      "$source": "defaults",
+      "timestamp": "2026-04-16T12:22:24.547Z"
+    },
+    "length": {
+      "meta": {
+        "description": "The various lengths of the vessel",
+        "properties": {
+          "overall": {
+            "type": "number",
+            "description": "Length overall",
+            "units": "m"
+          },
+          "hull": {
+            "type": "number",
+            "description": "Length of hull",
+            "units": "m"
+          },
+          "waterline": {
+            "type": "number",
+            "description": "Length at waterline",
+            "units": "m"
+          }
+        }
+      },
+      "value": { "overall": 12.37 },
+      "$source": "defaults",
+      "timestamp": "2026-04-16T12:22:24.547Z"
+    },
+    "beam": {
+      "meta": { "units": "m", "description": "Data should be of type number." },
+      "value": 7.09,
+      "$source": "defaults",
+      "timestamp": "2026-04-16T12:22:24.547Z"
+    },
+    "bowAnchorHight": {
+      "meta": {},
+      "value": 0,
+      "$source": "anchoralarm",
+      "timestamp": "2026-04-16T12:51:25.274Z"
+    },
+    "bowAnchorHeight": {
+      "meta": {
+        "displayName": "Bow Height From Water",
+        "units": "m",
+        "displayUnits": { "category": "length" }
+      },
+      "value": 0,
+      "$source": "anchoralarm",
+      "timestamp": "2026-04-16T12:51:25.274Z"
+    }
+  },
+  "sensors": {
+    "gps": {
+      "fromBow": {
+        "meta": { "description": "Data should be of type number." },
+        "value": 6,
+        "$source": "defaults",
+        "timestamp": "2026-04-16T12:22:24.547Z"
+      },
+      "fromCenter": {
+        "meta": { "description": "Data should be of type number." },
+        "value": 3.5,
+        "$source": "defaults",
+        "timestamp": "2026-04-16T12:22:24.547Z"
+      }
+    }
+  },
+  "navigation": {
+    "trip": {
+      "daily": {
+        "log": {
+          "meta": { "units": "m" },
+          "value": 252.35211538528264,
+          "$source": "signalk-to-influxdb2",
+          "timestamp": "2026-04-16T16:32:27.778Z"
+        }
+      }
+    },
+    "speedThroughWater": {
+      "meta": {
+        "units": "m/s",
+        "description": "Vessel speed through the water"
+      },
+      "value": 2.4641895131502323,
+      "$source": "signalk-path-mapper",
+      "timestamp": "2026-04-16T16:35:33.434Z",
+      "values": {
+        "signalk-path-mapper": {
+          "value": 2.4641895131502323,
+          "timestamp": "2026-04-16T16:35:33.434Z"
+        },
+        "seatalk1.ST": {
+          "value": null,
+          "timestamp": "2026-04-16T16:26:51.609Z",
+          "sentence": "ALK"
+        }
+      },
+      "sentence": "ALK"
+    },
+    "magneticVariation": {
+      "meta": {
+        "units": "rad",
+        "description": "The magnetic variation (declination) at the current position that must be added to the magnetic heading to derive the true heading. Easterly variations are positive and Westerly variations are negative (in Radians)."
+      },
+      "value": null,
+      "$source": "easytrx.GP",
+      "timestamp": "2026-04-16T16:35:33.000Z",
+      "source": {
+        "meta": {},
+        "value": "WMM 2025",
+        "$source": "derived-data",
+        "timestamp": "2026-04-16T16:35:33.439Z"
+      },
+      "values": {
+        "derived-data": {
+          "value": -0.15796279739707145,
+          "source": {
+            "meta": {},
+            "value": "WMM 2025",
+            "$source": "derived-data",
+            "timestamp": "2026-04-16T16:35:33.439Z"
+          },
+          "timestamp": "2026-04-16T16:35:33.439Z"
+        },
+        "easytrx.GP": {
+          "value": null,
+          "timestamp": "2026-04-16T16:35:33.000Z",
+          "sentence": "RMC"
+        }
+      },
+      "sentence": "RMC"
+    },
+    "position": {
+      "meta": {
+        "description": "The position of the vessel in 2 or 3 dimensions (WGS84 datum)",
+        "properties": {
+          "longitude": {
+            "type": "number",
+            "description": "Longitude",
+            "units": "deg",
+            "example": 4.98765245
+          },
+          "latitude": {
+            "type": "number",
+            "description": "Latitude",
+            "units": "deg",
+            "example": 52.0987654
+          },
+          "altitude": {
+            "type": "number",
+            "description": "Altitude",
+            "units": "m"
+          }
+        }
+      },
+      "value": {
+        "latitude": 24.923523333333332,
+        "longitude": -77.04329666666666
+      },
+      "$source": "easytrx.GP",
+      "timestamp": "2026-04-16T16:35:33.000Z",
+      "sentence": "RMC"
+    },
+    "gnss": {
+      "methodQuality": {
+        "meta": { "description": "Quality of the satellite fix" },
+        "value": "GNSS Fix",
+        "$source": "easytrx.GP",
+        "timestamp": "2026-04-16T16:35:33.000Z",
+        "sentence": "GGA"
+      },
+      "satellites": {
+        "meta": { "description": "Number of satellites" },
+        "value": 8,
+        "$source": "easytrx.GP",
+        "timestamp": "2026-04-16T16:35:33.000Z",
+        "sentence": "GGA"
+      },
+      "antennaAltitude": {
+        "meta": { "units": "m", "description": "Altitude of antenna" },
+        "value": 16.1,
+        "$source": "easytrx.GP",
+        "timestamp": "2026-04-16T16:35:33.000Z",
+        "sentence": "GGA"
+      },
+      "horizontalDilution": {
+        "meta": { "description": "Horizontal Dilution of Precision" },
+        "value": 1.1,
+        "$source": "easytrx.GP",
+        "timestamp": "2026-04-16T16:35:33.000Z",
+        "sentence": "GGA"
+      },
+      "geoidalSeparation": {
+        "meta": {
+          "description": "Difference between WGS84 earth ellipsoid and mean sea level"
+        },
+        "value": -30.4,
+        "$source": "easytrx.GP",
+        "timestamp": "2026-04-16T16:35:33.000Z",
+        "sentence": "GGA"
+      },
+      "differentialAge": {
+        "meta": { "units": "s", "description": "Age of DGPS data" },
+        "value": 0,
+        "$source": "easytrx.GP",
+        "timestamp": "2026-04-16T16:35:33.000Z",
+        "sentence": "GGA"
+      },
+      "differentialReference": {
+        "meta": { "description": "ID of DGPS base station" },
+        "value": 0,
+        "$source": "easytrx.GP",
+        "timestamp": "2026-04-16T16:35:33.000Z",
+        "sentence": "GGA"
+      }
+    },
+    "courseOverGroundTrue": {
+      "meta": { "units": "rad", "description": "Course over ground (true)" },
+      "value": 1.9591320858109627,
+      "$source": "easytrx.GP",
+      "timestamp": "2026-04-16T16:35:33.000Z",
+      "values": {
+        "derived-data": {
+          "value": 1.951277912148596,
+          "timestamp": "2026-04-16T16:35:33.440Z"
+        },
+        "easytrx.GP": {
+          "value": 1.9591320858109627,
+          "timestamp": "2026-04-16T16:35:33.000Z",
+          "sentence": "RMC"
+        }
+      },
+      "sentence": "RMC"
+    },
+    "courseOverGroundMagnetic": {
+      "meta": {
+        "units": "rad",
+        "description": "Course over ground (magnetic)"
+      },
+      "value": 2.1191892783085895,
+      "$source": "derived-data",
+      "timestamp": "2026-04-16T16:35:33.440Z"
+    },
+    "speedOverGround": {
+      "meta": {
+        "units": "m/s",
+        "description": "Vessel speed over ground. If converting from AIS 'HIGH' value, set to 102.2 (Ais max value) and add warning in notifications"
+      },
+      "value": 2.4641895131502323,
+      "$source": "easytrx.GP",
+      "timestamp": "2026-04-16T16:35:33.000Z",
+      "sentence": "RMC"
+    },
+    "magneticVariationAgeOfService": {
+      "meta": {
+        "units": "s",
+        "description": "Seconds since the 1st Jan 1970 that the variation calculation was made"
+      },
+      "value": 1776357333,
+      "$source": "easytrx.GP",
+      "timestamp": "2026-04-16T16:35:33.000Z",
+      "sentence": "RMC"
+    },
+    "datetime": {
+      "meta": {
+        "description": "Time and Date from the GNSS Positioning System"
+      },
+      "value": "2026-04-16T16:35:33.000Z",
+      "$source": "easytrx.GP",
+      "timestamp": "2026-04-16T16:35:33.000Z",
+      "sentence": "RMC"
+    },
+    "headingMagnetic": {
+      "meta": {
+        "units": "rad",
+        "description": "Current magnetic heading of the vessel, equals 'headingCompass adjusted for magneticDeviation'"
+      },
+      "value": 1.6057029122014126,
+      "$source": "seatalk1.ST",
+      "timestamp": "2026-04-16T16:35:34.140Z",
+      "values": {
+        "pypilot": {
+          "value": 1.6766087041418003,
+          "timestamp": "2026-04-16T16:35:27.719Z"
+        },
+        "seatalk1.ST": {
+          "value": 1.6057029122014126,
+          "timestamp": "2026-04-16T16:35:34.140Z",
+          "sentence": "ALK"
+        }
+      },
+      "sentence": "ALK"
+    },
+    "attitude": {
+      "meta": {
+        "description": "Vessel attitude: roll, pitch and yaw",
+        "properties": {
+          "roll": {
+            "type": "number",
+            "description": "Vessel roll, +ve is list to starboard",
+            "units": "rad"
+          },
+          "pitch": {
+            "type": "number",
+            "description": "Pitch, +ve is bow up",
+            "units": "rad"
+          },
+          "yaw": {
+            "type": "number",
+            "description": "Yaw, +ve is heading change to starboard",
+            "units": "rad"
+          }
+        }
+      },
+      "value": {
+        "roll": -0.007908087058300001,
+        "pitch": 0.031738813320500006,
+        "yaw": 1.6750204544788
+      },
+      "$source": "pypilot",
+      "timestamp": "2026-04-16T16:35:27.970Z"
+    },
+    "leewayAngle": {
+      "meta": {
+        "units": "rad",
+        "description": "Leeway Angle derived from the longitudinal and transverse speeds through the water"
+      },
+      "value": null,
+      "$source": "derived-data",
+      "timestamp": "2026-04-16T16:35:33.444Z"
+    },
+    "headingTrue": {
+      "meta": {
+        "units": "rad",
+        "description": "The current true north heading of the vessel, equals 'headingMagnetic adjusted for magneticVariation'"
+      },
+      "value": 1.4128335297564845,
+      "$source": "derived-data",
+      "timestamp": "2026-04-16T16:35:33.445Z"
+    },
+    "anchor": {
+      "position": {
+        "meta": {
+          "description": "The actual anchor position of the vessel in 3 dimensions, probably an estimate at best",
+          "properties": {
+            "longitude": {
+              "type": "number",
+              "description": "Longitude",
+              "units": "deg",
+              "example": 4.98765245
+            },
+            "latitude": {
+              "type": "number",
+              "description": "Latitude",
+              "units": "deg",
+              "example": 52.0987654
+            },
+            "altitude": {
+              "type": "number",
+              "description": "Altitude",
+              "units": "m"
+            }
+          },
+          "supportsPut": true
+        },
+        "value": null,
+        "$source": "anchoralarm",
+        "timestamp": "2026-04-16T12:51:25.280Z"
+      },
+      "distanceFromBow": {
+        "meta": {
+          "displayName": "Distance from Bow",
+          "units": "m",
+          "displayUnits": { "category": "length" }
+        },
+        "value": null,
+        "$source": "anchoralarm",
+        "timestamp": "2026-04-16T12:51:25.280Z"
+      },
+      "bearingTrue": {
+        "meta": {
+          "displayName": "Anchor Bearing True",
+          "units": "rad",
+          "displayUnits": { "category": "angle" }
+        },
+        "value": null,
+        "$source": "anchoralarm",
+        "timestamp": "2026-04-16T12:51:25.281Z"
+      },
+      "currentRadius": {
+        "meta": { "units": "m", "description": "Current distance to anchor" },
+        "value": null,
+        "$source": "anchoralarm",
+        "timestamp": "2026-04-16T12:51:25.280Z"
+      },
+      "fudgeFactor": {
+        "meta": {
+          "displayName": "Alarm Radius Fudge Factor",
+          "units": "m",
+          "displayUnits": { "category": "length" }
+        },
+        "value": 0,
+        "$source": "anchoralarm",
+        "timestamp": "2026-04-16T12:51:25.274Z"
+      },
+      "apparentBearing": {
+        "meta": {
+          "displayName": "Anchor Apparent Bearing",
+          "units": "rad",
+          "displayUnits": { "category": "angle" }
+        },
+        "value": null,
+        "$source": "anchoralarm",
+        "timestamp": "2026-04-16T12:51:25.281Z"
+      },
+      "maxRadius": {
+        "meta": {
+          "units": "m",
+          "description": "Radius of anchor alarm boundary. The distance from anchor to the center of the boat",
+          "supportsPut": true
+        },
+        "value": null,
+        "$source": "anchoralarm",
+        "timestamp": "2026-04-16T12:51:25.280Z"
+      },
+      "rodeLength": {
+        "meta": {
+          "displayName": "Rode Length",
+          "units": "m",
+          "displayUnits": { "category": "length" },
+          "supportsPut": true
+        },
+        "value": null,
+        "$source": "anchoralarm",
+        "timestamp": "2026-04-16T12:51:25.280Z"
+      },
+      "meta": {
+        "meta": {},
+        "value": {
+          "zones": [
+            { "state": "normal", "lower": 0, "upper": 4.5 },
+            { "state": "warn", "lower": 4.5, "upper": 5 },
+            { "state": "emergency", "lower": 5 }
+          ]
+        },
+        "$source": "anchoralarm",
+        "timestamp": "2026-04-16T12:51:25.274Z"
+      }
+    },
+    "courseGreatCircle": {
+      "activeRoute": {
+        "href": {
+          "meta": {
+            "description": "A reference (URL) to the presently active route, in resources."
+          },
+          "value": "/resources/routes/b2f7ec8a-0b99-4960-a1e8-a93d1f981986",
+          "$source": "courseApi",
+          "timestamp": "2026-04-16T14:19:11.383Z"
+        },
+        "startTime": {
+          "meta": { "description": "The time this route was activated" },
+          "value": "2026-04-16T13:00:09.511Z",
+          "$source": "courseApi",
+          "timestamp": "2026-04-16T14:19:11.383Z"
+        }
+      },
+      "nextPoint": {
+        "value": {
+          "href": {
+            "meta": {},
+            "value": null,
+            "$source": "courseApi",
+            "timestamp": "2026-04-16T14:19:11.383Z"
+          },
+          "type": {
+            "meta": {},
+            "value": "RoutePoint",
+            "$source": "courseApi",
+            "timestamp": "2026-04-16T14:19:11.383Z"
+          }
+        },
+        "position": {
+          "meta": {},
+          "value": {
+            "latitude": 24.918573038667546,
+            "longitude": -77.02980659079799
+          },
+          "$source": "courseApi",
+          "timestamp": "2026-04-16T14:19:11.383Z"
+        },
+        "arrivalCircle": {
+          "meta": {},
+          "value": 100,
+          "$source": "courseApi",
+          "timestamp": "2026-04-16T14:19:11.383Z"
+        },
+        "steerError": {
+          "meta": {},
+          "value": 0.003890541148606985,
+          "$source": "derived-data",
+          "timestamp": "2026-04-16T16:35:33.906Z"
+        },
+        "leftSteerError": {
+          "meta": {},
+          "value": 0.003890541148606985,
+          "$source": "derived-data",
+          "timestamp": "2026-04-16T16:35:33.906Z"
+        },
+        "rightSteerError": {
+          "meta": {},
+          "value": 0,
+          "$source": "derived-data",
+          "timestamp": "2026-04-16T16:35:33.906Z"
+        }
+      },
+      "previousPoint": {
+        "position": {
+          "meta": {
+            "description": "The position of lastPoint in two dimensions",
+            "properties": {
+              "longitude": {
+                "type": "number",
+                "description": "Longitude",
+                "units": "deg",
+                "example": 4.98765245
+              },
+              "latitude": {
+                "type": "number",
+                "description": "Latitude",
+                "units": "deg",
+                "example": 52.0987654
+              },
+              "altitude": {
+                "type": "number",
+                "description": "Altitude",
+                "units": "m"
+              }
+            }
+          },
+          "value": {
+            "latitude": 25.037146159601278,
+            "longitude": -77.2364875181099
+          },
+          "$source": "courseApi",
+          "timestamp": "2026-04-16T14:19:11.383Z"
+        },
+        "value": {
+          "type": {
+            "meta": {},
+            "value": "RoutePoint",
+            "$source": "courseApi",
+            "timestamp": "2026-04-16T14:19:11.383Z"
+          }
+        }
+      }
+    },
+    "courseRhumbline": {
+      "activeRoute": {
+        "href": {
+          "meta": {
+            "description": "A reference (URL) to the presently active route, in resources."
+          },
+          "value": "/resources/routes/b2f7ec8a-0b99-4960-a1e8-a93d1f981986",
+          "$source": "courseApi",
+          "timestamp": "2026-04-16T14:19:11.383Z"
+        },
+        "startTime": {
+          "meta": { "description": "The time this route was activated" },
+          "value": "2026-04-16T13:00:09.511Z",
+          "$source": "courseApi",
+          "timestamp": "2026-04-16T14:19:11.383Z"
+        }
+      },
+      "nextPoint": {
+        "value": {
+          "href": {
+            "meta": {},
+            "value": null,
+            "$source": "courseApi",
+            "timestamp": "2026-04-16T14:19:11.383Z"
+          },
+          "type": {
+            "meta": {},
+            "value": "RoutePoint",
+            "$source": "courseApi",
+            "timestamp": "2026-04-16T14:19:11.383Z"
+          }
+        },
+        "position": {
+          "meta": {},
+          "value": {
+            "latitude": 24.918573038667546,
+            "longitude": -77.02980659079799
+          },
+          "$source": "courseApi",
+          "timestamp": "2026-04-16T14:19:11.383Z"
+        },
+        "arrivalCircle": {
+          "meta": {},
+          "value": 100,
+          "$source": "courseApi",
+          "timestamp": "2026-04-16T14:19:11.383Z"
+        },
+        "distance": {
+          "meta": {},
+          "value": 1463.0800012348393,
+          "$source": "seatalk1.ST",
+          "timestamp": "2026-04-16T16:35:33.189Z",
+          "sentence": "ALK"
+        }
+      },
+      "previousPoint": {
+        "position": {
+          "meta": {
+            "description": "The position of lastPoint in two dimensions",
+            "properties": {
+              "longitude": {
+                "type": "number",
+                "description": "Longitude",
+                "units": "deg",
+                "example": 4.98765245
+              },
+              "latitude": {
+                "type": "number",
+                "description": "Latitude",
+                "units": "deg",
+                "example": 52.0987654
+              },
+              "altitude": {
+                "type": "number",
+                "description": "Altitude",
+                "units": "m"
+              }
+            }
+          },
+          "value": {
+            "latitude": 25.037146159601278,
+            "longitude": -77.2364875181099
+          },
+          "$source": "courseApi",
+          "timestamp": "2026-04-16T14:19:11.383Z"
+        },
+        "value": {
+          "type": {
+            "meta": {},
+            "value": "RoutePoint",
+            "$source": "courseApi",
+            "timestamp": "2026-04-16T14:19:11.383Z"
+          }
+        }
+      },
+      "crossTrackError": {
+        "meta": {
+          "units": "m",
+          "description": "The distance from the vessel's present position to the closest point on a line (track) between previousPoint and nextPoint. A negative number indicates that the vessel is currently to the left of this line (and thus must steer right to compensate), a positive number means the vessel is to the right of the line (steer left to compensate)."
+        },
+        "value": 66375.68005602107,
+        "$source": "seatalk1.ST",
+        "timestamp": "2026-04-16T16:35:33.189Z",
+        "sentence": "ALK"
+      },
+      "bearingToDestinationTrue": {
+        "meta": {},
+        "value": 1.9547687626799806,
+        "$source": "seatalk1.ST",
+        "timestamp": "2026-04-16T16:35:33.189Z",
+        "sentence": "ALK"
+      },
+      "bearingToDestinationMagnetic": {
+        "meta": {},
+        "value": 2.024581932775694,
+        "$source": "seatalk1.ST",
+        "timestamp": "2026-04-16T16:16:17.449Z",
+        "sentence": "ALK"
+      }
+    },
+    "course": {
+      "calcValues": {
+        "calcMethod": {
+          "meta": {
+            "description": "Calculation type used (GreatCircle or Rhumbline)."
+          },
+          "value": "GreatCircle",
+          "$source": "course-provider",
+          "timestamp": "2026-04-16T16:35:33.904Z"
+        },
+        "bearingTrackTrue": {
+          "meta": {
+            "description": "The bearing of a line between previousPoint and nextPoint, relative to true north.",
+            "units": "rad"
+          },
+          "value": 2.1342908908558043,
+          "$source": "course-provider",
+          "timestamp": "2026-04-16T16:35:33.904Z"
+        },
+        "bearingTrackMagnetic": {
+          "meta": {
+            "description": "The bearing of a line between previousPoint and nextPoint, relative to magnetic north.",
+            "units": "rad"
+          },
+          "value": 1.9763280934587328,
+          "$source": "course-provider",
+          "timestamp": "2026-04-16T16:35:33.904Z"
+        },
+        "crossTrackError": {
+          "meta": {
+            "description": "The distance from the vessel's present position to the closest point on a line (track) between previousPoint and nextPoint. A negative number indicates that the vessel is currently to the left of this line (and thus must steer right to compensate), a positive number means the vessel is to the right of the line (steer left to compensate).",
+            "units": "m"
+          },
+          "value": 263.4101601207336,
+          "$source": "course-provider",
+          "timestamp": "2026-04-16T16:35:33.904Z"
+        },
+        "previousPoint": {
+          "distance": {
+            "meta": {
+              "description": "The distance in meters between the vessel's present position and the previousPoint.",
+              "units": "m"
+            },
+            "value": 23211.943954577524,
+            "$source": "course-provider",
+            "timestamp": "2026-04-16T16:35:33.904Z"
+          }
+        },
+        "distance": {
+          "meta": {
+            "description": "The distance in meters between the vessel's present position and the nextPoint.",
+            "units": "m"
+          },
+          "value": 1467.5047092625598,
+          "$source": "course-provider",
+          "timestamp": "2026-04-16T16:35:33.904Z"
+        },
+        "bearingTrue": {
+          "meta": {
+            "description": "The bearing of a line between the vessel's current position and nextPoint, relative to true north.",
+            "units": "rad"
+          },
+          "value": 1.9552415446623557,
+          "$source": "course-provider",
+          "timestamp": "2026-04-16T16:35:33.904Z"
+        },
+        "bearingMagnetic": {
+          "meta": {
+            "description": "The bearing of a line between the vessel's current position and nextPoint, relative to magnetic north.",
+            "units": "rad"
+          },
+          "value": 1.7972787472652842,
+          "$source": "course-provider",
+          "timestamp": "2026-04-16T16:35:33.904Z"
+        },
+        "velocityMadeGood": {
+          "meta": {
+            "description": "The velocity component of the vessel towards the nextPoint.",
+            "units": "m/s"
+          },
+          "value": 2.4487369404839665,
+          "$source": "course-provider",
+          "timestamp": "2026-04-16T16:35:33.904Z"
+        },
+        "timeToGo": {
+          "meta": {
+            "description": "Time in seconds to reach nextPoint's perpendicular with current speed & direction.",
+            "units": "s"
+          },
+          "value": 599.29,
+          "$source": "course-provider",
+          "timestamp": "2026-04-16T16:35:33.904Z"
+        },
+        "estimatedTimeOfArrival": {
+          "meta": {
+            "description": "The estimated time of arrival at nextPoint position."
+          },
+          "value": "2026-04-16T16:45:31.290Z",
+          "$source": "course-provider",
+          "timestamp": "2026-04-16T16:35:33.904Z"
+        },
+        "route": {
+          "timeToGo": {
+            "meta": {
+              "description": "Time in seconds to reach final destination with current speed & direction.",
+              "units": "s"
+            },
+            "value": 10158.548,
+            "$source": "course-provider",
+            "timestamp": "2026-04-16T16:35:33.904Z"
+          },
+          "estimatedTimeOfArrival": {
+            "meta": {
+              "description": "The estimated time of arrival at final destination."
+            },
+            "value": "2026-04-16T19:24:50.548Z",
+            "$source": "course-provider",
+            "timestamp": "2026-04-16T16:35:33.904Z"
+          },
+          "distance": {
+            "meta": {
+              "description": "The remaining distance along the route to reach the final destination.",
+              "units": "m"
+            },
+            "value": 24875.612022736474,
+            "$source": "course-provider",
+            "timestamp": "2026-04-16T16:35:33.904Z"
+          }
+        },
+        "targetSpeed": {
+          "meta": {
+            "description": "The average speed required to arrive at the destination at the targetArrivalTime.",
+            "units": "m/s"
+          },
+          "value": null,
+          "$source": "course-provider",
+          "timestamp": "2026-04-16T16:35:33.904Z"
+        }
+      }
+    }
+  },
+  "noforeignland": {
+    "status": {
+      "meta": {},
+      "value": "Save: 12:35:09 | Transfer: 12:35:00",
+      "$source": "signalk-to-noforeignland",
+      "timestamp": "2026-04-16T16:35:09.256Z"
+    },
+    "source": {
+      "meta": {},
+      "value": "easytrx.GP",
+      "$source": "signalk-to-noforeignland",
+      "timestamp": "2026-04-16T16:35:09.257Z"
+    },
+    "status_boolean": {
+      "meta": {},
+      "value": 0,
+      "$source": "signalk-to-noforeignland",
+      "timestamp": "2026-04-16T16:35:09.257Z"
+    },
+    "savepoint": {
+      "meta": {},
+      "value": "2026-04-16T16:35:09.254Z",
+      "$source": "signalk-to-noforeignland",
+      "timestamp": "2026-04-16T16:35:09.254Z"
+    },
+    "savepoint_local": {
+      "meta": {},
+      "value": "16/04/2026, 12:35:09",
+      "$source": "signalk-to-noforeignland",
+      "timestamp": "2026-04-16T16:35:09.255Z"
+    },
+    "sent_to_api": {
+      "meta": {},
+      "value": "2026-04-16T16:35:00.624Z",
+      "$source": "signalk-to-noforeignland",
+      "timestamp": "2026-04-16T16:35:00.624Z"
+    },
+    "sent_to_api_local": {
+      "meta": {},
+      "value": "16/04/2026, 12:35:00",
+      "$source": "signalk-to-noforeignland",
+      "timestamp": "2026-04-16T16:35:00.626Z"
+    }
+  },
+  "electrical": {
+    "batteries": {
+      "0": {
+        "voltage": {
+          "meta": {
+            "units": "V",
+            "description": "Voltage measured at or as close as possible to the device"
+          },
+          "value": 13.4,
+          "$source": "can0.46",
+          "timestamp": "2026-04-16T16:35:34.027Z",
+          "pgn": 127508,
+          "values": {
+            "can0.225": {
+              "value": 13.35,
+              "pgn": 127508,
+              "timestamp": "2026-04-16T16:35:32.787Z"
+            },
+            "can0.41": {
+              "value": 13.35,
+              "timestamp": "2026-04-16T16:35:32.772Z",
+              "pgn": 127508
+            },
+            "can0.39": {
+              "value": 13.32,
+              "timestamp": "2026-04-16T16:35:33.026Z",
+              "pgn": 127508
+            },
+            "can0.37": {
+              "value": 13.33,
+              "timestamp": "2026-04-16T16:35:33.034Z",
+              "pgn": 127508
+            },
+            "can0.38": {
+              "value": 13.33,
+              "timestamp": "2026-04-16T16:35:33.078Z",
+              "pgn": 127508
+            },
+            "can0.36": {
+              "value": 13.33,
+              "timestamp": "2026-04-16T16:35:33.085Z",
+              "pgn": 127508
+            },
+            "can0.46": {
+              "value": 13.4,
+              "timestamp": "2026-04-16T16:35:34.027Z",
+              "pgn": 127508
+            }
+          }
+        },
+        "current": {
+          "meta": {
+            "units": "A",
+            "description": "Current flowing out (+ve) or in (-ve) to the device. Reversed for batteries (+ve = charging)."
+          },
+          "value": 0,
+          "$source": "can0.46",
+          "timestamp": "2026-04-16T16:35:34.027Z",
+          "pgn": 127508,
+          "values": {
+            "can0.225": {
+              "value": -5,
+              "pgn": 127508,
+              "timestamp": "2026-04-16T16:35:32.787Z"
+            },
+            "can0.41": {
+              "value": 71.8,
+              "timestamp": "2026-04-16T16:35:32.772Z",
+              "pgn": 127508
+            },
+            "can0.39": {
+              "value": 28.8,
+              "timestamp": "2026-04-16T16:35:33.026Z",
+              "pgn": 127508
+            },
+            "can0.37": {
+              "value": 28.9,
+              "timestamp": "2026-04-16T16:35:33.034Z",
+              "pgn": 127508
+            },
+            "can0.38": {
+              "value": 28.5,
+              "timestamp": "2026-04-16T16:35:33.078Z",
+              "pgn": 127508
+            },
+            "can0.36": {
+              "value": 6,
+              "timestamp": "2026-04-16T16:35:33.085Z",
+              "pgn": 127508
+            },
+            "can0.46": {
+              "value": 0,
+              "timestamp": "2026-04-16T16:35:34.027Z",
+              "pgn": 127508
+            }
+          }
+        },
+        "temperature": {
+          "meta": {
+            "units": "K",
+            "description": "Temperature measured within or on the device"
+          },
+          "value": 303.15,
+          "$source": "can0.225",
+          "timestamp": "2026-04-16T16:35:32.787Z",
+          "pgn": 127508
+        },
+        "capacity": {
+          "stateOfCharge": {
+            "meta": {
+              "units": "ratio",
+              "description": "Data should be of type number."
+            },
+            "value": 0.42,
+            "$source": "can0.41",
+            "timestamp": "2026-04-16T16:35:32.775Z",
+            "pgn": 127506
+          },
+          "timeRemaining": {
+            "meta": {
+              "units": "s",
+              "description": "Data should be of type number."
+            },
+            "value": null,
+            "$source": "can0.46",
+            "timestamp": "2026-04-16T16:35:34.030Z",
+            "pgn": 127506,
+            "values": {
+              "can0.41": {
+                "value": null,
+                "pgn": 127506,
+                "timestamp": "2026-04-16T16:35:32.775Z"
+              },
+              "can0.39": {
+                "value": null,
+                "timestamp": "2026-04-16T16:35:33.030Z",
+                "pgn": 127506
+              },
+              "can0.37": {
+                "value": null,
+                "timestamp": "2026-04-16T16:35:33.036Z",
+                "pgn": 127506
+              },
+              "can0.38": {
+                "value": null,
+                "timestamp": "2026-04-16T16:35:33.081Z",
+                "pgn": 127506
+              },
+              "can0.36": {
+                "value": null,
+                "timestamp": "2026-04-16T16:35:33.090Z",
+                "pgn": 127506
+              },
+              "can0.46": {
+                "value": null,
+                "timestamp": "2026-04-16T16:35:34.030Z",
+                "pgn": 127506
+              }
+            }
+          }
+        }
+      },
+      "1": {
+        "voltage": {
+          "meta": {
+            "units": "V",
+            "description": "Voltage measured at or as close as possible to the device"
+          },
+          "value": 12.94,
+          "$source": "can0.46",
+          "timestamp": "2026-04-16T16:35:34.028Z",
+          "pgn": 127508,
+          "values": {
+            "can0.39": {
+              "value": 31.53,
+              "pgn": 127508,
+              "timestamp": "2026-04-16T16:35:33.028Z"
+            },
+            "can0.37": {
+              "value": 31.56,
+              "timestamp": "2026-04-16T16:35:33.035Z",
+              "pgn": 127508
+            },
+            "can0.38": {
+              "value": 29.83,
+              "timestamp": "2026-04-16T16:35:33.079Z",
+              "pgn": 127508
+            },
+            "can0.36": {
+              "value": 40.85,
+              "timestamp": "2026-04-16T16:35:33.086Z",
+              "pgn": 127508
+            },
+            "can0.46": {
+              "value": 12.94,
+              "timestamp": "2026-04-16T16:35:34.028Z",
+              "pgn": 127508
+            }
+          }
+        },
+        "current": {
+          "meta": {
+            "units": "A",
+            "description": "Current flowing out (+ve) or in (-ve) to the device. Reversed for batteries (+ve = charging)."
+          },
+          "value": 0,
+          "$source": "can0.46",
+          "timestamp": "2026-04-16T16:35:34.028Z",
+          "pgn": 127508,
+          "values": {
+            "can0.39": {
+              "value": 12.5,
+              "pgn": 127508,
+              "timestamp": "2026-04-16T16:35:33.028Z"
+            },
+            "can0.37": {
+              "value": 12.6,
+              "timestamp": "2026-04-16T16:35:33.035Z",
+              "pgn": 127508
+            },
+            "can0.38": {
+              "value": 13,
+              "timestamp": "2026-04-16T16:35:33.079Z",
+              "pgn": 127508
+            },
+            "can0.36": {
+              "value": 2,
+              "timestamp": "2026-04-16T16:35:33.086Z",
+              "pgn": 127508
+            },
+            "can0.46": {
+              "value": 0,
+              "timestamp": "2026-04-16T16:35:34.028Z",
+              "pgn": 127508
+            }
+          }
+        },
+        "capacity": {
+          "timeRemaining": {
+            "meta": {
+              "units": "s",
+              "description": "Data should be of type number."
+            },
+            "value": null,
+            "$source": "can0.46",
+            "timestamp": "2026-04-16T16:35:34.031Z",
+            "pgn": 127506,
+            "values": {
+              "can0.39": {
+                "value": null,
+                "pgn": 127506,
+                "timestamp": "2026-04-16T16:35:33.032Z"
+              },
+              "can0.37": {
+                "value": null,
+                "timestamp": "2026-04-16T16:35:33.038Z",
+                "pgn": 127506
+              },
+              "can0.38": {
+                "value": null,
+                "timestamp": "2026-04-16T16:35:33.083Z",
+                "pgn": 127506
+              },
+              "can0.36": {
+                "value": null,
+                "timestamp": "2026-04-16T16:35:33.091Z",
+                "pgn": 127506
+              },
+              "can0.46": {
+                "value": null,
+                "timestamp": "2026-04-16T16:35:34.031Z",
+                "pgn": 127506
+              }
+            }
+          }
+        }
+      },
+      "239": {
+        "voltage": {
+          "meta": {
+            "units": "V",
+            "description": "Voltage measured at or as close as possible to the device"
+          },
+          "value": 13.34,
+          "$source": "can0.224",
+          "timestamp": "2026-04-16T16:35:33.244Z",
+          "pgn": 127508
+        },
+        "current": {
+          "meta": {
+            "units": "A",
+            "description": "Current flowing out (+ve) or in (-ve) to the device. Reversed for batteries (+ve = charging)."
+          },
+          "value": 70.9,
+          "$source": "can0.224",
+          "timestamp": "2026-04-16T16:35:33.244Z",
+          "pgn": 127508
+        },
+        "capacity": {
+          "stateOfCharge": {
+            "meta": {
+              "units": "ratio",
+              "description": "Data should be of type number."
+            },
+            "value": 0.43,
+            "$source": "can0.224",
+            "timestamp": "2026-04-16T16:35:33.247Z",
+            "pgn": 127506
+          },
+          "timeRemaining": {
+            "meta": {
+              "units": "s",
+              "description": "Data should be of type number."
+            },
+            "value": null,
+            "$source": "can0.224",
+            "timestamp": "2026-04-16T16:35:33.247Z",
+            "pgn": 127506
+          }
+        }
+      }
+    },
+    "switches": {
+      "bank": {
+        "0": {
+          "1": {
+            "state": {
+              "meta": {},
+              "value": 1,
+              "$source": "can0.41",
+              "timestamp": "2026-04-16T16:35:29.784Z",
+              "pgn": 127501
+            },
+            "order": {
+              "meta": {},
+              "value": 1,
+              "$source": "can0.41",
+              "timestamp": "2026-04-16T16:35:29.784Z",
+              "pgn": 127501
+            }
+          },
+          "2": {
+            "state": {
+              "meta": {},
+              "value": 0,
+              "$source": "can0.41",
+              "timestamp": "2026-04-16T16:35:29.784Z",
+              "pgn": 127501
+            },
+            "order": {
+              "meta": {},
+              "value": 2,
+              "$source": "can0.41",
+              "timestamp": "2026-04-16T16:35:29.784Z",
+              "pgn": 127501
+            }
+          },
+          "3": {
+            "state": {
+              "meta": {},
+              "value": 0,
+              "$source": "can0.41",
+              "timestamp": "2026-04-16T16:35:29.784Z",
+              "pgn": 127501
+            },
+            "order": {
+              "meta": {},
+              "value": 3,
+              "$source": "can0.41",
+              "timestamp": "2026-04-16T16:35:29.784Z",
+              "pgn": 127501
+            }
+          },
+          "4": {
+            "state": {
+              "meta": {},
+              "value": 0,
+              "$source": "can0.41",
+              "timestamp": "2026-04-16T16:35:29.784Z",
+              "pgn": 127501
+            },
+            "order": {
+              "meta": {},
+              "value": 4,
+              "$source": "can0.41",
+              "timestamp": "2026-04-16T16:35:29.784Z",
+              "pgn": 127501
+            }
+          },
+          "5": {
+            "state": {
+              "meta": {},
+              "value": 0,
+              "$source": "can0.225",
+              "timestamp": "2026-04-16T16:35:32.788Z",
+              "pgn": 127501,
+              "values": {
+                "can0.225": {
+                  "value": 0,
+                  "pgn": 127501,
+                  "timestamp": "2026-04-16T16:35:32.788Z"
+                },
+                "can0.41": {
+                  "value": 0,
+                  "timestamp": "2026-04-16T16:35:29.784Z",
+                  "pgn": 127501
+                }
+              }
+            },
+            "order": {
+              "meta": {},
+              "value": 5,
+              "$source": "can0.225",
+              "timestamp": "2026-04-16T16:35:32.788Z",
+              "pgn": 127501,
+              "values": {
+                "can0.225": {
+                  "value": 5,
+                  "pgn": 127501,
+                  "timestamp": "2026-04-16T16:35:32.788Z"
+                },
+                "can0.41": {
+                  "value": 5,
+                  "timestamp": "2026-04-16T16:35:29.784Z",
+                  "pgn": 127501
+                }
+              }
+            }
+          },
+          "6": {
+            "state": {
+              "meta": {},
+              "value": 0,
+              "$source": "can0.225",
+              "timestamp": "2026-04-16T16:35:32.788Z",
+              "pgn": 127501
+            },
+            "order": {
+              "meta": {},
+              "value": 6,
+              "$source": "can0.225",
+              "timestamp": "2026-04-16T16:35:32.788Z",
+              "pgn": 127501
+            }
+          },
+          "7": {
+            "state": {
+              "meta": {},
+              "value": 0,
+              "$source": "can0.225",
+              "timestamp": "2026-04-16T16:35:32.788Z",
+              "pgn": 127501
+            },
+            "order": {
+              "meta": {},
+              "value": 7,
+              "$source": "can0.225",
+              "timestamp": "2026-04-16T16:35:32.788Z",
+              "pgn": 127501
+            }
+          },
+          "8": {
+            "state": {
+              "meta": {},
+              "value": 0,
+              "$source": "can0.225",
+              "timestamp": "2026-04-16T16:35:32.788Z",
+              "pgn": 127501
+            },
+            "order": {
+              "meta": {},
+              "value": 8,
+              "$source": "can0.225",
+              "timestamp": "2026-04-16T16:35:32.788Z",
+              "pgn": 127501
+            }
+          },
+          "9": {
+            "state": {
+              "meta": {},
+              "value": 0,
+              "$source": "can0.225",
+              "timestamp": "2026-04-16T16:35:32.788Z",
+              "pgn": 127501
+            },
+            "order": {
+              "meta": {},
+              "value": 9,
+              "$source": "can0.225",
+              "timestamp": "2026-04-16T16:35:32.788Z",
+              "pgn": 127501
+            }
+          },
+          "10": {
+            "state": {
+              "meta": {},
+              "value": 0,
+              "$source": "can0.225",
+              "timestamp": "2026-04-16T16:35:32.788Z",
+              "pgn": 127501
+            },
+            "order": {
+              "meta": {},
+              "value": 10,
+              "$source": "can0.225",
+              "timestamp": "2026-04-16T16:35:32.788Z",
+              "pgn": 127501
+            }
+          },
+          "11": {
+            "state": {
+              "meta": {},
+              "value": 0,
+              "$source": "can0.225",
+              "timestamp": "2026-04-16T16:35:32.788Z",
+              "pgn": 127501
+            },
+            "order": {
+              "meta": {},
+              "value": 11,
+              "$source": "can0.225",
+              "timestamp": "2026-04-16T16:35:32.788Z",
+              "pgn": 127501
+            }
+          },
+          "12": {
+            "state": {
+              "meta": {},
+              "value": 0,
+              "$source": "can0.225",
+              "timestamp": "2026-04-16T16:35:32.788Z",
+              "pgn": 127501
+            },
+            "order": {
+              "meta": {},
+              "value": 12,
+              "$source": "can0.225",
+              "timestamp": "2026-04-16T16:35:32.788Z",
+              "pgn": 127501
+            }
+          }
+        }
+      }
+    },
+    "converter": {
+      "46": {
+        "undefined": {
+          "operatingState": {
+            "meta": {},
+            "value": "off",
+            "$source": "can0.46",
+            "timestamp": "2026-04-16T16:35:34.032Z",
+            "pgn": 127750
+          }
+        }
+      }
+    },
+    "ac": {
+      "0": {
+        "phase": {
+          "A": {
+            "lineNeutralVoltage": {
+              "meta": {
+                "units": "V",
+                "description": "Data should be of type number."
+              },
+              "value": 230,
+              "$source": "can0.225",
+              "timestamp": "2026-04-16T16:35:32.789Z",
+              "pgn": 65014
+            },
+            "frequency": {
+              "meta": {
+                "units": "Hz",
+                "description": "Data should be of type number."
+              },
+              "value": 50.07,
+              "$source": "can0.225",
+              "timestamp": "2026-04-16T16:35:32.789Z",
+              "pgn": 65014
+            },
+            "current": {
+              "meta": {
+                "units": "A",
+                "description": "Data should be of type number."
+              },
+              "value": 0,
+              "$source": "can0.225",
+              "timestamp": "2026-04-16T16:35:32.789Z",
+              "pgn": 65014
+            },
+            "realPower": {
+              "meta": {
+                "units": "W",
+                "description": "Data should be of type number."
+              },
+              "value": 68,
+              "$source": "can0.225",
+              "timestamp": "2026-04-16T16:35:32.791Z",
+              "pgn": 65013
+            }
+          }
+        },
+        "total": {
+          "realPower": {
+            "meta": {},
+            "value": 68,
+            "$source": "can0.225",
+            "timestamp": "2026-04-16T16:35:32.792Z",
+            "pgn": 65016
+          }
+        }
+      },
+      "1": {
+        "phase": {
+          "A": {
+            "lineNeutralVoltage": {
+              "meta": {
+                "units": "V",
+                "description": "Data should be of type number."
+              },
+              "value": 0,
+              "$source": "can0.226",
+              "timestamp": "2026-04-16T16:35:32.784Z",
+              "pgn": 65014
+            },
+            "frequency": {
+              "meta": {
+                "units": "Hz",
+                "description": "Data should be of type number."
+              },
+              "value": 0,
+              "$source": "can0.226",
+              "timestamp": "2026-04-16T16:35:32.784Z",
+              "pgn": 65014
+            },
+            "current": {
+              "meta": {
+                "units": "A",
+                "description": "Data should be of type number."
+              },
+              "value": 0,
+              "$source": "can0.226",
+              "timestamp": "2026-04-16T16:35:32.784Z",
+              "pgn": 65014
+            },
+            "realPower": {
+              "meta": {
+                "units": "W",
+                "description": "Data should be of type number."
+              },
+              "value": 0,
+              "$source": "can0.226",
+              "timestamp": "2026-04-16T16:35:32.785Z",
+              "pgn": 65013
+            }
+          }
+        },
+        "total": {
+          "realPower": {
+            "meta": {},
+            "value": 0,
+            "$source": "can0.226",
+            "timestamp": "2026-04-16T16:35:32.786Z",
+            "pgn": 65016
+          }
+        }
+      }
+    }
+  },
+  "environment": {
+    "sun": {
+      "meta": {},
+      "value": "day",
+      "$source": "derived-data",
+      "timestamp": "2026-04-16T16:34:49.294Z"
+    },
+    "mode": {
+      "meta": {
+        "description": "Mode of the vessel based on the current conditions. Can be combined with navigation.state to control vessel signals eg switch to night mode for instrumentation and lights, or make sound signals for fog."
+      },
+      "value": "day",
+      "$source": "derived-data",
+      "timestamp": "2026-04-16T16:34:49.294Z"
+    },
+    "inside": {
+      "saloon": {
+        "pressure": {
+          "meta": { "units": "Pa", "description": "Pressure in zone" },
+          "value": 102046,
+          "$source": "OpenPlotter.I2C.BME680/688",
+          "timestamp": "2026-04-16T16:35:27.230Z"
+        },
+        "temperature": {
+          "meta": { "units": "K", "description": "Temperature" },
+          "value": 306.34999999999997,
+          "$source": "OpenPlotter.I2C.BME680/688",
+          "timestamp": "2026-04-16T16:35:27.230Z"
+        },
+        "relativeHumidity": {
+          "meta": {
+            "units": "ratio",
+            "description": "Relative humidity in zone"
+          },
+          "value": 0.585,
+          "$source": "OpenPlotter.I2C.BME680/688",
+          "timestamp": "2026-04-16T16:35:27.230Z"
+        }
+      }
+    },
+    "current": {
+      "drift": {
+        "meta": {},
+        "value": 0.8663906991258766,
+        "$source": "derived-data",
+        "timestamp": "2026-04-16T16:35:34.141Z"
+      },
+      "setTrue": {
+        "meta": {},
+        "value": null,
+        "$source": "derived-data",
+        "timestamp": "2026-04-16T16:35:34.141Z"
+      },
+      "setMagnetic": {
+        "meta": {},
+        "value": 4.535674393579915,
+        "$source": "derived-data",
+        "timestamp": "2026-04-16T16:35:34.141Z"
+      },
+      "driftImpact": {
+        "meta": {},
+        "value": 0.15230826191046762,
+        "$source": "derived-data",
+        "timestamp": "2026-04-16T16:35:34.141Z"
+      }
+    },
+    "depth": {
+      "belowSurface": {
+        "meta": { "units": "m", "description": "Depth from surface" },
+        "value": 4.69424,
+        "$source": "derived-data",
+        "timestamp": "2026-04-16T16:35:33.217Z"
+      },
+      "belowKeel": {
+        "meta": { "units": "m", "description": "Depth below keel" },
+        "value": 3.4442399999999997,
+        "$source": "derived-data",
+        "timestamp": "2026-04-16T16:35:33.216Z"
+      },
+      "belowTransducer": {
+        "meta": { "units": "m", "description": "Depth below Transducer" },
+        "value": 3.4442399999999997,
+        "$source": "seatalk1.ST",
+        "timestamp": "2026-04-16T16:35:33.216Z",
+        "sentence": "ALK"
+      }
+    },
+    "wind": {
+      "angleApparent": {
+        "meta": {
+          "units": "rad",
+          "description": "Apparent wind angle, negative to port"
+        },
+        "value": null,
+        "$source": "seatalk1.ST",
+        "timestamp": "2026-04-16T15:13:41.079Z",
+        "sentence": "ALK"
+      },
+      "directionTrue": {
+        "meta": {
+          "units": "rad",
+          "description": "The wind direction relative to true north"
+        },
+        "value": null,
+        "$source": "derived-data",
+        "timestamp": "2026-04-16T16:35:33.445Z"
+      },
+      "angleTrueGround": {
+        "meta": {
+          "units": "rad",
+          "description": "True wind angle based on speed over ground, negative to port"
+        },
+        "value": null,
+        "$source": "derived-data",
+        "timestamp": "2026-04-16T16:35:33.445Z"
+      },
+      "speedOverGround": {
+        "meta": {
+          "units": "m/s",
+          "description": "Wind speed over ground (as calculated from speedApparent and vessel's speed over ground)"
+        },
+        "value": null,
+        "$source": "derived-data",
+        "timestamp": "2026-04-16T16:35:33.445Z"
+      },
+      "speedApparent": {
+        "meta": { "units": "m/s", "description": "Apparent wind speed" },
+        "value": 5.658890322474438,
+        "$source": "seatalk1.ST",
+        "timestamp": "2026-04-16T13:23:51.052Z",
+        "sentence": "ALK"
+      }
+    }
+  },
+  "performance": {
+    "leeway": {
+      "meta": {
+        "units": "rad",
+        "description": "Data should be of type number."
+      },
+      "value": -0.004136027791674721,
+      "$source": "derived-data",
+      "timestamp": "2026-04-16T16:35:33.435Z"
+    },
+    "velocityMadeGoodToWaypoint": {
+      "meta": {
+        "units": "m/s",
+        "description": "Data should be of type number."
+      },
+      "value": 2.4487369404839665,
+      "$source": "course-provider",
+      "timestamp": "2026-04-16T16:35:33.904Z"
+    }
+  },
+  "tanks": {
+    "freshWater": {
+      "0": {
+        "currentLevel": {
+          "meta": {
+            "units": "ratio",
+            "description": "Data should be of type number."
+          },
+          "value": null,
+          "$source": "can0.208",
+          "timestamp": "2026-04-16T16:35:33.627Z",
+          "pgn": 127505
+        },
+        "capacity": {
+          "meta": {
+            "units": "m3",
+            "description": "Data should be of type number."
+          },
+          "value": 0.4,
+          "$source": "can0.208",
+          "timestamp": "2026-04-16T16:35:33.627Z",
+          "pgn": 127505
+        }
+      }
+    }
+  },
+  "network": {
+    "providers": {
+      "starlink": {
+        "status": {
+          "meta": {},
+          "value": "online",
+          "$source": "signalk-starlink",
+          "timestamp": "2026-04-16T16:35:28.551Z"
+        },
+        "uptime": {
+          "meta": {},
+          "value": "548360",
+          "$source": "signalk-starlink",
+          "timestamp": "2026-04-16T16:35:28.551Z"
+        },
+        "hardware": {
+          "meta": {},
+          "value": "mini1_prod2",
+          "$source": "signalk-starlink",
+          "timestamp": "2026-04-16T16:35:28.551Z"
+        },
+        "software": {
+          "meta": {},
+          "value": "2026.04.03.mr77363",
+          "$source": "signalk-starlink",
+          "timestamp": "2026-04-16T16:35:28.551Z"
+        },
+        "downlink_throughput": {
+          "meta": {},
+          "value": 32723.958984375,
+          "$source": "signalk-starlink",
+          "timestamp": "2026-04-16T16:35:28.551Z"
+        },
+        "uplink_throughput": {
+          "meta": {},
+          "value": 41028.68359375,
+          "$source": "signalk-starlink",
+          "timestamp": "2026-04-16T16:35:28.551Z"
+        },
+        "latency": {
+          "meta": {},
+          "value": 23.1729793548584,
+          "$source": "signalk-starlink",
+          "timestamp": "2026-04-16T16:35:28.551Z"
+        },
+        "alerts": {
+          "meta": {},
+          "value": {},
+          "$source": "signalk-starlink",
+          "timestamp": "2026-04-16T16:35:28.551Z"
+        }
+      }
+    }
+  },
+  "notifications": {
+    "navigation": {
+      "anchor": {
+        "meta": { "description": "The anchor data, for anchor watch etc" },
+        "value": {
+          "state": "normal",
+          "method": ["visual", "sound"],
+          "message": "Anchor Alarm - Normal",
+          "id": "79cba85d-86f7-4a2c-ab81-136c0b7c585b",
+          "status": {
+            "silenced": false,
+            "acknowledged": false,
+            "canSilence": true,
+            "canAcknowledge": true,
+            "canClear": false
+          }
+        },
+        "$source": "anchoralarm",
+        "timestamp": "2026-04-16T12:51:09.962Z"
+      },
+      "course": {
+        "perpendicularPassed": {
+          "meta": {},
+          "value": {
+            "state": "normal",
+            "method": [],
+            "message": "",
+            "id": "9e423c43-c5b0-4151-b11a-0b9cb86350d5",
+            "status": {
+              "silenced": false,
+              "acknowledged": false,
+              "canSilence": true,
+              "canAcknowledge": true,
+              "canClear": false
+            }
+          },
+          "$source": "course-provider",
+          "timestamp": "2026-04-16T14:06:11.889Z"
+        },
+        "arrivalCircleEntered": {
+          "meta": {},
+          "value": {
+            "state": "normal",
+            "method": [],
+            "message": "",
+            "id": "32286c61-0f4a-401a-b589-897a50611de8",
+            "status": {
+              "silenced": false,
+              "acknowledged": false,
+              "canSilence": true,
+              "canAcknowledge": true,
+              "canClear": false
+            }
+          },
+          "$source": "course-provider",
+          "timestamp": "2026-04-16T14:19:11.901Z"
+        }
+      }
+    },
+    "environment": {
+      "depth": {
+        "belowSurface": {
+          "meta": { "units": "m", "description": "Depth from surface" },
+          "value": {
+            "state": "normal",
+            "timestamp": "2026-04-16T12:51:41.284Z",
+            "message": "The depth is normal",
+            "id": "f3cc222f-655e-4afc-999b-4d6adf74db37",
+            "status": {
+              "silenced": false,
+              "acknowledged": false,
+              "canSilence": true,
+              "canAcknowledge": true,
+              "canClear": false
+            }
+          },
+          "$source": "simple-notifications",
+          "timestamp": "2026-04-16T12:51:41.284Z"
+        }
+      }
+    }
+  },
+  "steering": {
+    "autopilot": {
+      "target": {
+        "headingMagnetic": {
+          "meta": {
+            "units": "rad",
+            "description": "Data should be of type number.",
+            "supportsPut": true
+          },
+          "value": 1.4311699869621286,
+          "$source": "seatalk1.ST",
+          "timestamp": "2026-04-16T16:35:34.140Z",
+          "sentence": "ALK"
+        }
+      },
+      "state": {
+        "meta": { "description": "Autopilot state", "supportsPut": true },
+        "value": "auto",
+        "$source": "seatalk1.ST",
+        "timestamp": "2026-04-16T16:35:34.140Z",
+        "sentence": "ALK"
+      }
+    },
+    "rudderAngle": {
+      "meta": {
+        "units": "rad",
+        "description": "Data should be of type number."
+      },
+      "value": 0.0349065850478568,
+      "$source": "seatalk1.ST",
+      "timestamp": "2026-04-16T16:35:34.140Z",
+      "sentence": "ALK"
+    }
+  },
+  "displays": {
+    "73fd564a-998e-4daa-871e-aa1d5da9127b": {
+      "screenIndex": {
+        "meta": {},
+        "value": null,
+        "$source": "kip",
+        "timestamp": "2026-04-16T14:48:10.813Z"
+      },
+      "meta": {},
+      "value": null,
+      "$source": "kip",
+      "timestamp": "2026-04-16T14:48:10.817Z",
+      "activeScreen": {
+        "meta": {},
+        "value": null,
+        "$source": "kip",
+        "timestamp": "2026-04-16T14:48:10.819Z"
+      }
+    },
+    "693119f7-457f-47a5-8ef2-6793d1a723c3": {
+      "screenIndex": {
+        "meta": {},
+        "value": null,
+        "$source": "kip",
+        "timestamp": "2026-04-16T13:02:58.501Z"
+      },
+      "meta": {},
+      "value": null,
+      "$source": "kip",
+      "timestamp": "2026-04-16T13:02:58.502Z",
+      "activeScreen": {
+        "meta": {},
+        "value": null,
+        "$source": "kip",
+        "timestamp": "2026-04-16T13:02:58.502Z"
+      }
+    }
+  },
+  "radars": {
+    "Navico-129960231": {
+      "meta": {},
+      "value": {
+        "id": "Navico-129960231",
+        "name": "129960231",
+        "brand": "Navico",
+        "status": "standby",
+        "spokesPerRevolution": 2048,
+        "maxSpokeLen": 1024,
+        "controls": {
+          "0": { "isReadOnly": true, "name": "Status" },
+          "1": {
+            "descriptions": { "standby": "Standby", "transmit": "Transmit" },
+            "name": "Power",
+            "validValues": ["transmit", "standby"]
+          }
+        },
+        "legend": {
+          "0": { "color": "#000000" },
+          "1": { "color": "#003200" },
+          "2": { "color": "#003900" },
+          "3": { "color": "#004000" },
+          "4": { "color": "#004700" },
+          "5": { "color": "#004E00" },
+          "6": { "color": "#005500" },
+          "7": { "color": "#005C00" },
+          "8": { "color": "#006400" },
+          "9": { "color": "#006B00" },
+          "10": { "color": "#007200" },
+          "11": { "color": "#007900" },
+          "12": { "color": "#008000" },
+          "13": { "color": "#008700" },
+          "14": { "color": "#008E00" },
+          "15": { "color": "#009600" },
+          "16": { "color": "#009600" },
+          "17": { "color": "#0D9900" },
+          "18": { "color": "#1A9D00" },
+          "19": { "color": "#28A100" },
+          "20": { "color": "#35A400" },
+          "21": { "color": "#42A800" },
+          "22": { "color": "#50AC00" },
+          "23": { "color": "#5DAF00" },
+          "24": { "color": "#6AB300" },
+          "25": { "color": "#78B700" },
+          "26": { "color": "#85BA00" },
+          "27": { "color": "#92BE00" },
+          "28": { "color": "#A0C200" },
+          "29": { "color": "#ADC500" },
+          "30": { "color": "#BAC900" },
+          "31": { "color": "#C8CD00" },
+          "32": { "color": "#C8B400" },
+          "33": { "color": "#CBAD00" },
+          "34": { "color": "#CFA600" },
+          "35": { "color": "#D3A000" },
+          "36": { "color": "#D69900" },
+          "37": { "color": "#DA9200" },
+          "38": { "color": "#DE8C00" },
+          "39": { "color": "#E18500" },
+          "40": { "color": "#E57E00" },
+          "41": { "color": "#E97800" },
+          "42": { "color": "#EC7100" },
+          "43": { "color": "#F06A00" },
+          "44": { "color": "#F46400" },
+          "45": { "color": "#F75D00" },
+          "46": { "color": "#FB5600" },
+          "47": { "color": "#FF5000" },
+          "48": { "color": "#FF5000" },
+          "49": { "color": "#FF4A00" },
+          "50": { "color": "#FF4500" },
+          "51": { "color": "#FF4000" },
+          "52": { "color": "#FF3A00" },
+          "53": { "color": "#FF3500" },
+          "54": { "color": "#FF3000" },
+          "55": { "color": "#FF2A00" },
+          "56": { "color": "#FF2500" },
+          "57": { "color": "#FF2000" },
+          "58": { "color": "#FF1A00" },
+          "59": { "color": "#FF1500" },
+          "60": { "color": "#FF1000" },
+          "61": { "color": "#FF0A00" },
+          "62": { "color": "#FF0500" },
+          "63": { "color": "#FF0000" },
+          "64": { "color": "#FF0000" },
+          "65": { "color": "#FF0000" },
+          "66": { "color": "#FF0000" },
+          "67": { "color": "#FF0000" },
+          "68": { "color": "#FF0000" },
+          "69": { "color": "#FF0000" },
+          "70": { "color": "#FF0000" },
+          "71": { "color": "#FF0000" },
+          "72": { "color": "#FF0000" },
+          "73": { "color": "#FF0000" },
+          "74": { "color": "#FF0000" },
+          "75": { "color": "#FF0000" },
+          "76": { "color": "#FF0000" },
+          "77": { "color": "#FF0000" },
+          "78": { "color": "#FF0000" },
+          "79": { "color": "#FF0000" },
+          "80": { "color": "#FF0000" },
+          "81": { "color": "#FF0000" },
+          "82": { "color": "#FF0000" },
+          "83": { "color": "#FF0000" },
+          "84": { "color": "#FF0000" },
+          "85": { "color": "#FF0000" },
+          "86": { "color": "#FF0000" },
+          "87": { "color": "#FF0000" },
+          "88": { "color": "#FF0000" },
+          "89": { "color": "#FF0000" },
+          "90": { "color": "#FF0000" },
+          "91": { "color": "#FF0000" },
+          "92": { "color": "#FF0000" },
+          "93": { "color": "#FF0000" },
+          "94": { "color": "#FF0000" },
+          "95": { "color": "#FF0000" },
+          "96": { "color": "#FF0000" },
+          "97": { "color": "#FF0000" },
+          "98": { "color": "#FF0000" },
+          "99": { "color": "#FF0000" },
+          "100": { "color": "#FF0000" },
+          "101": { "color": "#FF0000" },
+          "102": { "color": "#FF0000" },
+          "103": { "color": "#FF0000" },
+          "104": { "color": "#FF0000" },
+          "105": { "color": "#FF0000" },
+          "106": { "color": "#FF0000" },
+          "107": { "color": "#FF0000" },
+          "108": { "color": "#FF0000" },
+          "109": { "color": "#FF0000" },
+          "110": { "color": "#FF0000" },
+          "111": { "color": "#FF0000" },
+          "112": { "color": "#FF0000" },
+          "113": { "color": "#FF0000" },
+          "114": { "color": "#FF0000" },
+          "115": { "color": "#FF0000" },
+          "116": { "color": "#FF0000" },
+          "117": { "color": "#FF0000" },
+          "118": { "color": "#FF0000" },
+          "119": { "color": "#FF0000" },
+          "120": { "color": "#FF0000" },
+          "121": { "color": "#FF0000" },
+          "122": { "color": "#FF0000" },
+          "123": { "color": "#FF0000" },
+          "124": { "color": "#FF0000" },
+          "125": { "color": "#FF0000" },
+          "126": { "color": "#FF0000" },
+          "127": { "color": "#FF0000" },
+          "128": { "color": "#FF0000" },
+          "129": { "color": "#FF0000" },
+          "130": { "color": "#FF0000" },
+          "131": { "color": "#FF0000" },
+          "132": { "color": "#FF0000" },
+          "133": { "color": "#FF0000" },
+          "134": { "color": "#FF0000" },
+          "135": { "color": "#FF0000" },
+          "136": { "color": "#FF0000" },
+          "137": { "color": "#FF0000" },
+          "138": { "color": "#FF0000" },
+          "139": { "color": "#FF0000" },
+          "140": { "color": "#FF0000" },
+          "141": { "color": "#FF0000" },
+          "142": { "color": "#FF0000" },
+          "143": { "color": "#FF0000" },
+          "144": { "color": "#FF0000" },
+          "145": { "color": "#FF0000" },
+          "146": { "color": "#FF0000" },
+          "147": { "color": "#FF0000" },
+          "148": { "color": "#FF0000" },
+          "149": { "color": "#FF0000" },
+          "150": { "color": "#FF0000" },
+          "151": { "color": "#FF0000" },
+          "152": { "color": "#FF0000" },
+          "153": { "color": "#FF0000" },
+          "154": { "color": "#FF0000" },
+          "155": { "color": "#FF0000" },
+          "156": { "color": "#FF0000" },
+          "157": { "color": "#FF0000" },
+          "158": { "color": "#FF0000" },
+          "159": { "color": "#FF0000" },
+          "160": { "color": "#FF0000" },
+          "161": { "color": "#FF0000" },
+          "162": { "color": "#FF0000" },
+          "163": { "color": "#FF0000" },
+          "164": { "color": "#FF0000" },
+          "165": { "color": "#FF0000" },
+          "166": { "color": "#FF0000" },
+          "167": { "color": "#FF0000" },
+          "168": { "color": "#FF0000" },
+          "169": { "color": "#FF0000" },
+          "170": { "color": "#FF0000" },
+          "171": { "color": "#FF0000" },
+          "172": { "color": "#FF0000" },
+          "173": { "color": "#FF0000" },
+          "174": { "color": "#FF0000" },
+          "175": { "color": "#FF0000" },
+          "176": { "color": "#FF0000" },
+          "177": { "color": "#FF0000" },
+          "178": { "color": "#FF0000" },
+          "179": { "color": "#FF0000" },
+          "180": { "color": "#FF0000" },
+          "181": { "color": "#FF0000" },
+          "182": { "color": "#FF0000" },
+          "183": { "color": "#FF0000" },
+          "184": { "color": "#FF0000" },
+          "185": { "color": "#FF0000" },
+          "186": { "color": "#FF0000" },
+          "187": { "color": "#FF0000" },
+          "188": { "color": "#FF0000" },
+          "189": { "color": "#FF0000" },
+          "190": { "color": "#FF0000" },
+          "191": { "color": "#FF0000" },
+          "192": { "color": "#FF0000" },
+          "193": { "color": "#FF0000" },
+          "194": { "color": "#FF0000" },
+          "195": { "color": "#FF0000" },
+          "196": { "color": "#FF0000" },
+          "197": { "color": "#FF0000" },
+          "198": { "color": "#FF0000" },
+          "199": { "color": "#FF0000" },
+          "200": { "color": "#FF0000" },
+          "201": { "color": "#FF0000" },
+          "202": { "color": "#FF0000" },
+          "203": { "color": "#FF0000" },
+          "204": { "color": "#FF0000" },
+          "205": { "color": "#FF0000" },
+          "206": { "color": "#FF0000" },
+          "207": { "color": "#FF0000" },
+          "208": { "color": "#FF0000" },
+          "209": { "color": "#FF0000" },
+          "210": { "color": "#FF0000" },
+          "211": { "color": "#FF0000" },
+          "212": { "color": "#FF0000" },
+          "213": { "color": "#FF0000" },
+          "214": { "color": "#FF0000" },
+          "215": { "color": "#FF0000" },
+          "216": { "color": "#FF0000" },
+          "217": { "color": "#FF0000" },
+          "218": { "color": "#FF0000" },
+          "219": { "color": "#FF0000" },
+          "220": { "color": "#FF0000" },
+          "221": { "color": "#FF0000" },
+          "222": { "color": "#FF0000" },
+          "223": { "color": "#FF0000" },
+          "224": { "color": "#FF0000" },
+          "225": { "color": "#FF0000" },
+          "226": { "color": "#FF0000" },
+          "227": { "color": "#FF0000" },
+          "228": { "color": "#FF0000" },
+          "229": { "color": "#FF0000" },
+          "230": { "color": "#FF0000" },
+          "231": { "color": "#FF0000" },
+          "232": { "color": "#FF0000" },
+          "233": { "color": "#FF0000" },
+          "234": { "color": "#FF0000" },
+          "235": { "color": "#FF0000" },
+          "236": { "color": "#FF0000" },
+          "237": { "color": "#FF0000" },
+          "238": { "color": "#FF0000" },
+          "239": { "color": "#FF0000" },
+          "240": { "color": "#FF0000" },
+          "241": { "color": "#FF0000" },
+          "242": { "color": "#FF0000" },
+          "243": { "color": "#FF0000" },
+          "244": { "color": "#FF0000" },
+          "245": { "color": "#FF0000" },
+          "246": { "color": "#FF0000" },
+          "247": { "color": "#FF0000" },
+          "248": { "color": "#FF0000" },
+          "249": { "color": "#FF0000" },
+          "250": { "color": "#FF0000" },
+          "251": { "color": "#FF0000" },
+          "252": { "color": "#FF0000" },
+          "253": { "color": "#FF0000" },
+          "254": { "color": "#FF0000" },
+          "255": { "color": "#FF0000" }
+        }
+      },
+      "$source": "@marineyachtradar/signalk-wasm",
+      "timestamp": "2026-04-16T16:34:38.187Z"
+    }
+  }
+}

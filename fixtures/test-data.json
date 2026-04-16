@@ -1,0 +1,69 @@
+{
+  "_meta": {
+    "source": "openplotter.local (ONA, MMSI 261006533)",
+    "captured": "2026-04-16T16:35:33Z",
+    "notes": "Real values from live boat where available. Synthesized values marked with _synth comment."
+  },
+  "navigation.position": {
+    "latitude": 24.923523333333332,
+    "longitude": -77.04329666666666
+  },
+  "navigation.speedOverGround": 2.4641895131502323,
+  "navigation.speedThroughWater": 2.4641895131502323,
+  "navigation.courseOverGroundTrue": 1.9591320858109627,
+  "navigation.courseOverGroundMagnetic": 2.1191892783085895,
+  "navigation.headingTrue": 1.4128335297564845,
+  "navigation.headingMagnetic": 1.6057029122014126,
+  "navigation.magneticVariation": -0.1600572058449268,
+  "navigation.datetime": "2026-04-16T16:35:33.000Z",
+  "navigation.rateOfTurn": 0.0087266462599716,
+  "navigation.log": 185200,
+  "navigation.trip.log": 42340,
+  "navigation.attitude": {
+    "roll": -0.007908087058300001,
+    "pitch": 0.031738813320500006,
+    "yaw": 1.6750204544788
+  },
+  "navigation.gnss.methodQuality": "GNSS Fix",
+  "navigation.gnss.satellites": 8,
+  "navigation.gnss.horizontalDilution": 1.1,
+  "navigation.gnss.antennaAltitude": 16.1,
+  "navigation.gnss.geoidalSeparation": -30.4,
+  "navigation.gnss.differentialAge": 0,
+  "navigation.gnss.differentialReference": 0,
+  "environment.depth.belowTransducer": 3.4442399999999997,
+  "environment.depth.belowSurface": 4.69424,
+  "environment.depth.belowKeel": 3.4442399999999997,
+  "environment.depth.surfaceToTransducer": 1.25,
+  "environment.depth.transducerToKeel": 0.85,
+  "environment.outside.pressure": 101625,
+  "environment.outside.temperature": 300.15,
+  "environment.water.temperature": 299.85,
+  "environment.wind.angleApparent": -0.6108652381980153,
+  "environment.wind.speedApparent": 5.658890322474438,
+  "environment.wind.angleTrueWater": -0.7853981633974483,
+  "environment.wind.speedTrue": 4.115,
+  "environment.wind.directionTrue": 4.71238898038469,
+  "steering.rudderAngle": 0.0349065850478568,
+  "performance.velocityMadeGood": 1.852,
+  "performance.polarSpeed": 2.572,
+  "performance.targetAngle": 0.6981317007977318,
+  "performance.polarSpeedRatio": 0.92,
+  "performance.polarVelocityMadeGoodRatio": 0.85,
+  "performance.tackMagnetic": 3.839724354387525,
+  "performance.targetSpeed": 2.315,
+  "navigation.course.calcValues.crossTrackError": 45.5,
+  "navigation.course.calcValues.bearingTrackTrue": 3.490658503988659,
+  "navigation.course.calcValues.bearingTrue": 3.560472300516129,
+  "navigation.course.calcValues.distance": 4639.26,
+  "navigation.course.calcValues.velocityMadeGood": 2.675,
+  "navigation.course.nextPoint": {
+    "position": { "latitude": 25.0775, "longitude": -77.3385 },
+    "name": "NASSAU"
+  },
+  "navigation.course.previousPoint": {
+    "position": { "latitude": 24.923, "longitude": -77.043 },
+    "name": "START"
+  },
+  "navigation.courseGreatCircle.crossTrackError": -23.7
+}
