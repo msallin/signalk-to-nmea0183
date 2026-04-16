@@ -13,7 +13,7 @@ module.exports = function (app) {
     title: 'VLW - Total log and daily log',
     keys: ['navigation.log', 'navigation.logTrip'],
     f: function (logDistance, tripDistance) {
-      return toSentence([
+      return nmea.toSentence([
         '$IIVLW',
         nmea.mToNm(logDistance).toFixed(2),
         'N',
