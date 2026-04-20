@@ -46,6 +46,9 @@
   "author": "teppo.kurki@iki.fi",
   "license": "Apache-2.0",
   "devDependencies": {
+    "@fortawesome/fontawesome-svg-core": "^7.2.0",
+    "@fortawesome/free-solid-svg-icons": "^7.2.0",
+    "@fortawesome/react-fontawesome": "^3.3.1",
     "@stryker-mutator/core": "^9.6.1",
     "@stryker-mutator/mocha-runner": "^9.6.1",
     "@types/mocha": "^10.0.10",
