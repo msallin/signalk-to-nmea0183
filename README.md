@@ -4,13 +4,26 @@
 [![npm version](https://img.shields.io/npm/v/@signalk/signalk-to-nmea0183.svg)](https://www.npmjs.com/package/@signalk/signalk-to-nmea0183)
 [![License](https://img.shields.io/npm/l/@signalk/signalk-to-nmea0183.svg)](https://github.com/SignalK/signalk-to-nmea0183/blob/master/LICENSE)
 
-Signal K Node server plugin to convert Signal K to NMEA 0183. See the code for a list of supported sentences.
+Signal K Node server plugin to convert Signal K data to NMEA 0183 sentences. Supports 42 sentence types including standard navigation (RMC, GGA, GLL, VTG), depth (DBT, DPT), wind (MWV, MWD, VWT), heading (HDG, HDM, HDT), and performance (PNKEP) sentences.
 
-To use the plugin you need to activate the plugin and the relevant sentences in server's Admin interface. This will make the conversion results (NMEA 0183) available on Signalk's built-in TCP NMEA 0183 server (Port 10110).
+## Configuration
 
-As the plugin automatically sends NMEA 0183 data to Signalk's built-in TCP NMEA 0183 server, it is possible to have access to the NMEA 0183 strings without configuring anything (Aka a serial output device) by connecting to port 10110 with a TCP client (e.g. OpenCPN, Netcat, kplex etc)
+Open the Signal K admin UI, go to **Server > Plugin Config > Convert Signal K to NMEA0183**, and add the sentences you want to generate. Each row shows the required Signal K paths with live availability indicators (green = has data, red = missing), so you can see at a glance what's available.
 
-If you want to output the conversion result into a serial connection you need to configure the serial connection in the server's Admin interface and add an extra line to the `settings.json`, specifying that the serial connection should output the plugin's output:
+![Plugin configuration](docs/screenshots/02-table-configured.png)
+
+Per conversion you can optionally set:
+
+- **Minimum interval (ms)** to throttle high-frequency sentences
+- **Custom event name** to route a sentence to a specific output (emitted in addition to the standard `nmea0183out` event)
+
+## Output
+
+Converted sentences are available on Signal K's built-in TCP NMEA 0183 server (port 10110). Connect with any TCP client (OpenCPN, kplex, Netcat, etc.) without further configuration.
+
+### Serial output
+
+To output sentences to a serial port, configure the serial connection in the admin UI and add `toStdout` to the provider in `settings.json`:
 
 ```
 {
@@ -43,8 +56,8 @@ If you want to output the conversion result into a serial connection you need to
 }
 ```
 
-Note: Internally the plugin emits the converted NMEA 0183 messages as `Events` under the event identifier `nmea0183out`. The above configuration sends the converted data (NMEA 0183) under the `nmea0183out` events identifier to the serialport's output.
+The `toStdout: "nmea0183out"` line routes the plugin's output to the serial port. If you configured a custom event name on a conversion, use that event name instead.
 
-Troubleshooting: If you cannot connect to Signalk's built-in TCP NMEA 0183 server, ensure it is enabled. To verify the TCP NMEA 0183 server is enabled go to Signalk's Dashboard, then Server->Settings->Interfaces->nmea-tcp .
+### Troubleshooting
 
-![image](https://user-images.githubusercontent.com/1049678/63366888-64283700-c383-11e9-9a5f-7f9975e007f3.png)
+If you cannot connect to the TCP NMEA 0183 server, verify it is enabled under **Server > Settings > Interfaces > nmea-tcp**.
