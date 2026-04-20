@@ -1,3 +1,6 @@
+import { faPlusSquare } from '@fortawesome/free-solid-svg-icons/faPlusSquare'
+import { faTrashCan } from '@fortawesome/free-solid-svg-icons/faTrashCan'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useState, useEffect, useCallback } from 'react'
 import type { CSSProperties } from 'react'
 
@@ -326,7 +329,7 @@ export default function PluginConfigurationPanel({
                   title="Remove"
                   aria-label="Remove conversion"
                 >
-                  {'\u2715'}
+                  <FontAwesomeIcon icon={faTrashCan} />
                 </button>
               </div>
 
@@ -379,7 +382,7 @@ export default function PluginConfigurationPanel({
 
       <div style={S.actions}>
         <button style={{ ...S.btn, ...S.btnAdd }} onClick={addRow}>
-          + Add conversion
+          <FontAwesomeIcon icon={faPlusSquare} /> Add conversion
         </button>
         <button style={{ ...S.btn, ...S.btnSave }} onClick={doSave}>
           Save Configuration
