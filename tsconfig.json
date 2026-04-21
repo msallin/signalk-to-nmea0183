@@ -1,18 +1,8 @@
 {
   "compilerOptions": {
     "target": "ES2022",
-    // This package is consumed by signalk-server via plain CJS
-    // `require(...)`, so `module: commonjs` stays. `node16`/`nodenext`
-    // would flip the file-mode to whatever `package.json#type` says,
-    // which here is CJS, but it then disallows ESM `import` syntax in
-    // test files under `verbatimModuleSyntax: true`. Not worth the
-    // churn for a plugin that will always be CJS on the host side.
     "module": "commonjs",
-    "moduleResolution": "node",
-    // TS 6 turned the legacy `node` (a.k.a. node10) moduleResolution into a
-    // hard deprecation. Silence that so the package can stay on `node` for
-    // now; migrating to `node16` / `bundler` is a separate audit.
-    "ignoreDeprecations": "6.0",
+    "moduleResolution": "bundler",
     "lib": ["ES2022"],
 
     "strict": true,
@@ -22,17 +12,12 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noUncheckedIndexedAccess": true,
-    // Each file must be independently transpilable (what tsx, esbuild,
-    // and bundlers want). Surfaces const-enum / re-export edge cases
-    // before they break a downstream.
     "isolatedModules": true,
 
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
     "resolveJsonModule": true,
-    // TS 6 tightened the default @types scan: mocha's describe / it globals
-    // no longer leak in unless the test runner is listed here explicitly.
     "types": ["node", "mocha"],
 
     "declaration": true,
