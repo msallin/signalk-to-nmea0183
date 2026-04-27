@@ -31,12 +31,8 @@ import {
   msToKnots,
   formatDatetime
 } from '../nmea'
+import type { Position } from '@signalk/server-api'
 import type { SentenceEncoder, SignalKApp } from '../types/plugin'
-
-interface Position {
-  latitude: number
-  longitude: number
-}
 
 export default function (_app: SignalKApp): SentenceEncoder {
   return {

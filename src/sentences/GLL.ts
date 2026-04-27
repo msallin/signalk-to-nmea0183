@@ -10,12 +10,8 @@ Example: $GPGLL,5943.4970,N,02444.1983,E,200001.00,A*03
 */
 
 import * as nmea from '../nmea'
+import type { Position } from '@signalk/server-api'
 import type { SentenceEncoder, SignalKApp } from '../types/plugin'
-
-interface Position {
-  latitude: number
-  longitude: number
-}
 
 export default function (_app: SignalKApp): SentenceEncoder {
   return {

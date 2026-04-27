@@ -7,6 +7,7 @@
  */
 import { sentenceFactories } from './sentences'
 import type * as PluginTypes from './types/plugin'
+import type { Path } from '@signalk/server-api'
 import type { Property } from 'baconjs'
 
 type AnyStream<T = unknown> = PluginTypes.AnyStream<T>
@@ -61,7 +62,7 @@ const createPlugin = function (app: SignalKApp): SignalKPlugin {
     start: function (options: Record<string, unknown>): void {
       function mapToNmea(encoder: SentenceEncoder, throttle?: unknown): void {
         const selfStreams = encoder.keys.map((key, index) => {
-          let stream: AnyStream = app.streambundle.getSelfStream(key)
+          let stream: AnyStream = app.streambundle.getSelfStream(key as Path)
           if (
             encoder.defaults &&
             typeof encoder.defaults[index] !== 'undefined'
