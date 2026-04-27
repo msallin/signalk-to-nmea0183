@@ -1,11 +1,10 @@
 /**
  * Core types for the signalk-to-nmea0183 plugin.
  *
- * `SignalKApp` is a minimal structural description of the `app` argument
- * the signalk-server host passes to the plugin factory. Only the members
- * the plugin actually uses are modelled. `unknown` is preferred over `any`
- * so that downstream calls go through explicit narrowing or a cast, which
- * keeps accidental misuse visible at the call site.
+ * `SignalKApp` extends the public `ServerAPI` from `@signalk/server-api`
+ * with the `emit` method the plugin uses to publish NMEA0183 sentences
+ * on the host's event bus. `emit` is part of the `EventEmitter` the
+ * server inherits from but is not modelled in `@signalk/server-api`.
  *
  * `SentenceEncoder` is the shape every module in src/sentences/ returns.
  * Keys are Signal K paths; `f` is invoked with the latest value for each
@@ -17,28 +16,21 @@
  * must emit at least once before the combined stream fires.
  */
 import type { EventStream, Property } from 'baconjs'
+import type { Plugin, ServerAPI } from '@signalk/server-api'
+
+export type { StreamBundle } from '@signalk/server-api'
 
 /** @internal */
 export type AnyStream<T = unknown> = EventStream<T> | Property<T>
 
-// `StreamBundle` is exposed because `SignalKApp.streambundle` references
-// it; stripping it via @internal would leave the public `.d.ts`
-// referring to a symbol that no longer exists.
-export interface StreamBundle {
-  getSelfStream: (path: string) => AnyStream
-}
-
 /**
- * Minimal structural type for the `app` object the signalk-server host
- * passes to the plugin factory. Only the members this plugin actually
- * reaches for are modelled.
+ * Extends the public `ServerAPI` with the EventEmitter `emit` method
+ * the plugin uses to publish NMEA0183 sentences on the host's event
+ * bus. The server is an EventEmitter at runtime but `emit` is not part
+ * of the typed surface in `@signalk/server-api`.
  */
-export interface SignalKApp {
-  streambundle: StreamBundle
-  emit: (event: string, value: unknown) => void
-  debug: (msg: unknown) => void
-  error?: (msg: unknown) => void
-  reportOutputMessages?: (n: number) => void
+export interface SignalKApp extends ServerAPI {
+  emit(event: string, value: unknown): void
 }
 
 /**
@@ -92,13 +84,8 @@ export interface SignalKPluginSchema {
  * Consumers normally don't construct this directly — they call the
  * factory exported by the package entry.
  */
-export interface SignalKPlugin {
-  id: string
-  name: string
-  description: string
+export interface SignalKPlugin extends Plugin {
   schema: SignalKPluginSchema
-  start: (options: Record<string, unknown>) => void
-  stop: () => void
   sentences: Record<string, SentenceEncoder>
   unsubscribes: Array<() => void>
 }
